@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(163, 128, 73);
+    font-family: fantasy;
+    font-size: 20px;
+    color: rgb(238, 229, 182);
+
+}
+
+span {
+    color:rgb(118, 190, 125)
+}
+
+h1 {
+    font-style: italic;
+    font-size: 40px;
+    word-spacing: 5px;
+}

@@ -1,0 +1,18 @@
+body {
+    background-image: linear-gradient(rgb(176, 227, 192), rgb(215, 229, 201));
+    font-family: Cambria, serif;
+    font-size: 20px;
+    color: rgb(164, 85, 152);
+
+}
+
+span {
+    color:rgb(118, 190, 125)
+}
+
+h1 {
+    font-family: "gabriela", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+  }

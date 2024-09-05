@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(228, 213, 174);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: rgb(123, 28, 28);
+
+}
+
+span {
+    color:rgb(118, 190, 125)
+}
+
+h1 {
+    font-family: "MedievalSharp", system-ui;
+    font-style: bold;
+    word-spacing: 5px;
+    font-size: 50px;
+}

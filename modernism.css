@@ -1,0 +1,20 @@
+body {
+    background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+    font-family:'Franklin Gothic', Arial, sans-serif;
+    font-size: 20px;
+    color: rgb(45, 45, 45);
+
+}
+
+span {
+    color:rgb(118, 190, 125)
+}
+
+h1 {
+    font-family: "Arial Narrow", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+  }
+
+  

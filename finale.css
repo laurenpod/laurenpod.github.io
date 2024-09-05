@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(255, 233, 198);
+    font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    color: rgb(81, 20, 20);
+}
+.button {
+    background-color: rgb(95, 20, 20);
+    color: white;
+    padding: 5px;
+    text-decoration: line;
+    border-radius: 5px;
+  }
+span {
+    text-decoration: rgb(0, 0, 0) wavy underline;
+}

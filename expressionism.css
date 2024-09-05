@@ -1,0 +1,20 @@
+body {
+    background-image: linear-gradient(to bottom, #ffb40c, #fd9d00, #fb8400, #f66a00, #f14d00, #dd3713, #c8201b, #b2001f, #860724, #5a0f21, #300f17, #000000);
+    font-family: Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: rgb(236, 223, 217);
+
+}
+
+span {
+    color:rgb(118, 190, 125)
+}
+
+h1 {
+    font-family: "Peralta", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+    color:#000000
+  }
+  
