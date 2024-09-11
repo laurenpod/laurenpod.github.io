@@ -8,11 +8,11 @@ body {
 
 h1 {
     font-family: fantasy;
-    font-weight: 400;
+    font-weight: 400px;
     font-style: normal;
     font-size: 300px;
     color: #F6A6B0;
-    transform: rotate(-90deg);
+     transform: rotate(-90deg);
   }
 
   h2 {
