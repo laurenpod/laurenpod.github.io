@@ -1,6 +1,6 @@
 .poster {
     width: 100vw;  
-    height: 100vw; 
+    height: 100vh; 
     display: flex;   
     background-color: #acd919; 
     flex-direction: column; 
