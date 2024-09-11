@@ -37,7 +37,7 @@
   }
   
   h1 {
-    font-size: 100px; 
+    font-size: 90px; 
     letter-spacing: 2px; 
     margin-bottom: 2px;
     font-style: italic;
@@ -45,7 +45,7 @@
   }
   
   h2 {
-    font-size: 43px; 
+    font-size: 38px; 
     letter-spacing: 0.25px;
     font-family: "Underdog";
   }
@@ -60,8 +60,8 @@
 }
 
 .circle {
-    width: 60px; 
-    height: 30px; 
+    width: 40px; 
+    height: 10px; 
     background-color: #ff0084; 
     border-radius: 50%; 
     opacity:0.75;
