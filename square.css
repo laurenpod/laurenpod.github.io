@@ -1,0 +1,14 @@
+.circle {
+    height: 150px;
+    width: 150px;
+    background-color: #3cff00;
+    border-radius: 50%;
+  }
+
+  .square {
+    height: 250px;
+    width: 250px;
+    background-color: #ff5656;
+    position: relative;
+    right: -35px;
+  }

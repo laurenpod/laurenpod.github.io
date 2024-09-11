@@ -1,15 +1,13 @@
 .poster {
-    width: 2000px;  
-    height: 2384px; 
-    background-color: #acd919; 
+    width: 100vw;  
+    height: 100vh; 
     display: flex;   
+    background-color: #acd919; 
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
     font-size: 26px; 
     font-family: Arial, sans-serif; 
-    overflow:auto;
-    resize:both;
   }
   
   img {
@@ -33,6 +31,7 @@
     margin: 0; 
     text-align: center;
     line-height: 1; 
+   
   }
   
   h1 {
@@ -47,6 +46,10 @@
     font-size: 43px; 
     letter-spacing: 0.25px;
     font-family: "Underdog";
+  }
+
+  body {
+    margin: 0;
   }
   
   .circles {
