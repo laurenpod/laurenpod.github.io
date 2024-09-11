@@ -1,12 +1,12 @@
 .poster {
-    width: 300vw;  
-    height: 300vh; 
+    width: 100vw;  
+    height: 100vh; 
     display: flex;   
     background-color: #acd919; 
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
-    font-size: 26vw; 
+    font-size: 26px; 
     font-family: Arial, sans-serif; 
   }
   
@@ -35,7 +35,7 @@
   }
   
   h1 {
-    font-size: 150vw; 
+    font-size: 150px; 
     letter-spacing: 2px; 
     margin-bottom: 2px;
     font-style: italic;
@@ -43,7 +43,7 @@
   }
   
   h2 {
-    font-size: 43vw; 
+    font-size: 43px; 
     letter-spacing: 0.25px;
     font-family: "Underdog";
   }
@@ -58,8 +58,8 @@
 }
 
 .circle {
-    width: 60vw; 
-    height: 30vh; 
+    width: 60px; 
+    height: 30px; 
     background-color: #ff0084; 
     border-radius: 50%; 
     opacity:0.75;
