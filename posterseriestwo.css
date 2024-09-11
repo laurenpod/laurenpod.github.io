@@ -1,0 +1,64 @@
+.poster {
+    width: 2000px;  
+    height: 2384px; 
+    background-color: #acd919; 
+    display: flex;   
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 26px; 
+    font-family: Arial, sans-serif; 
+    overflow:auto;
+    resize:both;
+  }
+  
+  img {
+    width: 500px; 
+    height: 500px; 
+    object-fit: cover; 
+    background-image: url('london.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    transition: background-size 0.5s ease; 
+  }
+  
+  img:hover {
+    background-size: 120%;
+  }
+  
+  h1, h2 {
+    font-weight: 600;
+    color: #ff006f; 
+    margin: 0; 
+    text-align: center;
+    line-height: 1; 
+  }
+  
+  h1 {
+    font-size: 150px; 
+    letter-spacing: 2px; 
+    margin-bottom: 2px;
+    font-style: italic;
+    text-transform:uppercase;
+  }
+  
+  h2 {
+    font-size: 43px; 
+    letter-spacing: 0.25px;
+    font-family: "Underdog";
+  }
+  
+  .circles {
+    display: flex;
+    gap: 15px; 
+}
+
+.circle {
+    width: 60px; 
+    height: 30px; 
+    background-color: #ff0084; 
+    border-radius: 50%; 
+    opacity:0.75;
+}
+

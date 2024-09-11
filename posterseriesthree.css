@@ -1,0 +1,38 @@
+body {
+    background-image: linear-gradient(rgb(13, 35, 22), rgb(0, 0, 0));
+    font-family: fantasy
+    font-size: 200px;
+    color: rgb(208, 200, 161);
+
+}
+
+h1 {
+    font-family: fantasy;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 300px;
+    color: #F6A6B0;
+  }
+
+  h2 {
+    font-family: fantasy;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    color: #F6A6B0;
+    transform: skew(20deg, 10deg);
+  }
+
+  img {
+    transform: skew(20deg, 10deg);
+  }
+
+  .circle{
+    width:200px;
+    height: 280px;
+    background:rgb(68, 116, 108);
+    border-radius:50%;
+    position:absolute;
+    bottom:5px;
+    right:5px;
+  }
