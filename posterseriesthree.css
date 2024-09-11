@@ -12,6 +12,7 @@ h1 {
     font-style: normal;
     font-size: 300px;
     color: #F6A6B0;
+    transform: rotate(-90deg);
   }
 
   h2 {
