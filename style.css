@@ -9,7 +9,7 @@ span {
     color:rgb(118, 190, 125)
 }
 
-li {
+ul, li {
     list-style-type: none;
 }
 
