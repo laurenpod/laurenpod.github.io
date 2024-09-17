@@ -1,0 +1,24 @@
+
+.circle {
+    width: 500px; 
+    height: 500px; 
+    background-color: #ffb3da; 
+    border-radius: 50%; 
+}
+
+h1 {
+    font-weight: 600;
+    font-family: "Underdog";
+    font-style: bold;
+    font-size: 90px;
+    color: #218867;
+    position: absolute;
+    left:190px
+}
+
+.image {
+    position:absolute;
+    left: 120px;
+    top: 130px;
+
+}
