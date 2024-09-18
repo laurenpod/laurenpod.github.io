@@ -1,0 +1,165 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000000;
+}
+
+h1 {
+    font-weight: 600;
+    font-family: "Bangers", sans-serif;
+    font-size: 95px;
+    color: #ffffff; /* Original color */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+h1:hover {
+    color: #EED238; /* Change color on hover */
+}
+
+.poster h1 {
+    margin-bottom: 0;
+}
+
+
+h2 {
+    font-weight: 600;
+    font-family: "Underdog", sans-serif;
+    font-size: 35px;
+    color: #170d0e;
+    position: relative;
+    top: -10px;
+}
+
+h2:hover {
+    color:#ffffff
+}
+
+.poster {
+    width: 600px;
+    height: 900px;
+    background-color: #BA161D;
+    border: 10px solid #eed338;
+    border-radius: 25px;
+    padding: 2px;
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spiky-bubble {
+    position: relative;
+    width: 400px;
+    height: 350px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    clip-path: polygon(100% 50%,79.93% 52%,99.55% 56.66%,79.4% 55.98%,98.22% 63.21%,78.34% 59.84%,96.03% 69.52%,76.78% 63.53%,93.02% 75.48%,74.73% 66.98%,89.24% 80.99%,72.25% 70.12%,84.76% 85.94%,69.37% 72.91%,79.66% 90.25%,66.14% 75.29%,74.03% 93.85%,62.63% 77.21%,67.97% 96.66%,58.89% 78.65%,61.59% 98.64%,54.99% 79.58%,55% 99.75%,51% 79.98%,48.33% 99.97%,47% 79.85%,41.68% 99.3%,43.05% 79.18%,35.19% 97.76%,39.22% 78%,28.95% 95.35%,35.58% 76.31%,23.1% 92.14%,32.2% 74.15%,17.72% 88.18%,29.14% 71.56%,12.92% 83.54%,26.46% 68.59%,8.78% 78.3%,24.19% 65.29%,5.37% 72.55%,22.38% 61.71%,2.77% 66.4%,21.07% 57.93%,1% 59.96%,20.27% 54%,0.11% 53.34%,20% 50%,0.11% 46.66%,20.27% 46%,1% 40.04%,21.07% 42.07%,2.77% 33.6%,22.38% 38.29%,5.37% 27.45%,24.19% 34.71%,8.78% 21.7%,26.46% 31.41%,12.92% 16.46%,29.14% 28.44%,17.72% 11.82%,32.2% 25.85%,23.1% 7.86%,35.58% 23.69%,28.95% 4.65%,39.22% 22%,35.19% 2.24%,43.05% 20.82%,41.68% 0.7%,47% 20.15%,48.33% 0.03%,51% 20.02%,55% 0.25%,54.99% 20.42%,61.59% 1.36%,58.89% 21.35%,67.97% 3.34%,62.63% 22.79%,74.03% 6.15%,66.14% 24.71%,79.66% 9.75%,69.37% 27.09%,84.76% 14.06%,72.25% 29.88%,89.24% 19.01%,74.73% 33.02%,93.02% 24.52%,76.78% 36.47%,96.03% 30.48%,78.34% 40.16%,98.22% 36.79%,79.4% 44.02%,99.55% 43.34%,79.93% 48%);
+    ;
+}
+
+
+
+.spiky-bubble p {
+    margin: 0;
+}
+
+.images {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -47%);
+    z-index: 2;
+}
+
+img {
+    --s: 300px; /* image size */
+    --b: 5px; /* border thickness */
+    --c: #c0294200; /* border color */
+    --f: 1; /* initial scale */
+    
+    width: var(--s);
+    aspect-ratio: 1;
+    padding-top: calc(var(--s)/5);
+    cursor: pointer;
+    border-radius: 0 0 999px 999px;
+    --_g: 50%/calc(100%/var(--f)) 100% no-repeat content-box;
+    --_o: calc((1/var(--f) - 1)*var(--s)/2 - var(--b));
+    outline: var(--b) solid var(--c);
+    outline-offset: var(--_o);
+    background: 
+      radial-gradient(
+        circle closest-side,
+        #ecd17800 calc(99% - var(--b)),var(--c) calc(100% - var(--b)) 99%,#0000
+       ) var(--_g);
+    -webkit-mask:
+      linear-gradient(#000 0 0) no-repeat
+       50% calc(1px - var(--_o)) / calc(100%/var(--f) - 2*var(--b) - 2px) 50%,
+      radial-gradient(circle closest-side,#000 99%,#0000) var(--_g);
+    transform: scale(var(--f));
+    transition: .5s;
+  }
+  img:hover {
+    --f: 1.35; /* hover scale */
+  }
+  
+
+
+.stripes div {
+	width: 50.91px;
+	height: 75px;
+	display: inline-block;
+    position: relative;
+    bottom:-29px;
+}
+
+
+.stripes2 div {
+	width: 50.91px;
+	height: 60px;
+	display: inline-block;
+    position: relative;
+    bottom:-13px;
+}
+
+.s1 {
+	background-color: #EED238;
+}
+.s2 {
+	background-color: #0E4D73;
+}
+
+.stripes:hover .s1 {
+    background-color: #0E4D73;
+}
+
+.stripes:hover .s2 {
+    background-color: #EED238;
+}
+
+.stripes2:hover .s1 {
+    background-color: #0E4D73;
+}
+
+.stripes2:hover .s2 {
+    background-color: #EED238;
+}
+
+
+.poster h2 {
+    margin-top: 20px;
+}
+
+.poster span {
+    display: block;
+    margin-bottom: -10px;
+}

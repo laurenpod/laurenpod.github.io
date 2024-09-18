@@ -1,0 +1,175 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000000;
+}
+
+h1 {
+    font-weight: 600;
+    font-family: "Orbitron";
+    font-style: bold;
+    font-size: 70px;
+    color: #31070c;
+    position: relative;
+    top: -30px; /* Move the element up */
+    transform: skew(-32deg);
+    margin: 2px;
+    margin-bottom: -15px;
+}
+
+span {
+    line-height: .2;
+    position: relative;
+}
+
+h2 {
+    font-weight: 600;
+    font-family: "Underdog";
+    font-style: bold;
+    font-size: 35px;
+    color: #170d0e;
+    position: relative;
+    top:-10;
+}
+
+.poster {
+    width: 600px;
+    height: 900px;
+    background-color: #cf170a;
+    border: 15px solid #451117;
+    padding: 2px;
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spiky-bubble {
+    position: relative;
+    width: 450px; /* Adjusted width */
+    height: 350px; /* Adjusted height */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px; /* More rounded corners */
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+.spiky-bubble p {
+    margin: 0;
+}
+
+.images {
+    position: absolute; /* Positioned absolutely on top of the spiky bubble */
+    top: 45%; /* Move image downwards */
+    left: 50%; /* Move image slightly to the right */
+    transform: translate(-50%, -47%); /* Center the element */
+    z-index: 2; /* Ensure the image is above the spiky bubble */
+}
+
+.circles {
+    position: relative; /* Ensure circles are in the stacking context */
+    z-index: 20; /* Higher than the bouncing image */
+    display: flex;
+    gap: 15px;
+}
+
+.circle {
+    width: 50px; /* Size of the star */
+    height: 50px; /* Size of the star */
+    background-color: #ffffff; /* Color of the star */
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, background-color 0.3s; /* Smooth transition for transform and color */
+}
+
+.circle:hover {
+    background-color: #000000; /* Change color on hover */
+    transform: scale(1.5); /* Enlarge the star on hover */
+}
+
+.poster h1 {
+    margin-bottom: 0;
+}
+
+.poster h2 {
+    margin-top: 20px; /* Added px unit */
+}
+
+.poster span {
+    display: block;
+    margin-bottom: -10px;
+}
+
+/* Bouncing image container */
+.bouncing-container {
+    position: fixed; /* Keep the image in view relative to the viewport */
+    top: 0; /* Start from the top */
+    left: 0; /* Start from the left */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Hide overflow to keep image within bounds */
+    z-index: 10; /* Ensure it appears below the stars */
+}
+
+/* Bouncing image effect */
+.bouncing-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px; /* Set to desired width */
+    height: 100px; /* Set to desired height */
+    background: url('The_Clash-logo-D89185D44A-seeklogo.com.png') no-repeat center center; /* Placeholder URL */
+    background-size: contain; /* Ensure image fits within container */
+    animation: bounce 5s infinite; /* Adjust animation duration as needed */
+}
+
+/* Define the bouncing animation */
+@keyframes bounce {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(calc(100vw - 100px), 0); /* Move to the far right */
+    }
+    50% {
+        transform: translate(calc(100vw - 100px), calc(100vh - 100px)); /* Move to the bottom-right corner */
+    }
+    75% {
+        transform: translate(0, calc(100vh - 100px)); /* Move to the bottom-left corner */
+    }
+    100% {
+        transform: translate(0, 0); /* Return to the top-left corner */
+    }
+}
