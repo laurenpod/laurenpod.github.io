@@ -13,7 +13,7 @@ h1 {
     font-style: bold;
     font-size: 100px;
     color: #F6A6B0;
-    margin-top: 20px; /* Adjusted margin to move title up more */
+    margin-top: 75px; /* Adjusted margin to move title up more */
     transform: skew(22deg);
 }
 
