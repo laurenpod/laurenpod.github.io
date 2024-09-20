@@ -63,7 +63,7 @@ h3 {
 
 .spiky-bubble {
     position: relative; /* Added position relative */
-    width: 330px; /* Adjusted width */
+    width: 326px; /* Adjusted width */
     height: 290px; /* Adjusted height */
     padding: 20px;
     background-color: #ffffff;
