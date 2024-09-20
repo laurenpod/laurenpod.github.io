@@ -44,7 +44,7 @@ h3 {
     font-size: 35px;
     color: #170d0e;
     position: relative;
-    top: -10px; /* Added 'px' unit */
+    top: 7px; /* Added 'px' unit */
 }
 
 .poster {
