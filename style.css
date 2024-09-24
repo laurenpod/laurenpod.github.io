@@ -10,45 +10,58 @@ body {
     align-items: center; /* Center content horizontally */
     min-height: 100vh; /* Ensure full height */
     justify-content: center; /* Center content vertically */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }
 
 span {
     color: rgb(118, 190, 125);
+    transition: color 0.5s ease; /* Corrected comment syntax */
 }
 
 ul, li {
     list-style-type: none;
-    padding: 0; /* Remove padding from list */
-    margin: 0; /* Remove margin from list */
+    padding: 0; 
+    margin: 0; 
 }
 
 h1 {
     font-family: "Georgia";
     font-size: 30px;
+    transition: font-size 0.5s ease; 
 }
 
-/* Media query for mobile devices */
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
     body {
-        font-size: 18px; /* Smaller font size for mobile */
-        text-align: center; /* Center text for better readability */
+        font-size: 18px; 
+        text-align: center; 
+        background-color: rgb(48, 97, 93); 
+        color: rgb(204, 204, 204); 
+        padding: 10px; /* Add some padding for better spacing on mobile */
     }
 
     h1 {
-        font-size: 24px; /* Smaller heading font size */
+        font-size: 24px; 
+        color: rgb(166, 166, 222); 
+        margin-bottom: 10px; /* Add margin for spacing */
     }
 
     img {
-        width: 150px; /* Adjust image size */
+        width: 100%; /* Make image responsive */
+        max-width: 150px; /* Limit max width */
         height: auto; /* Maintain aspect ratio */
+        margin: 10px 0; /* Add some margin for spacing */
+    }
+
+    ul {
+        padding: 10px; /* Add padding to list for better spacing */
     }
 
     marquee {
-        font-size: 16px; /* Adjust marquee font size */
+        font-size: 16px; 
+        margin: 10px 0; /* Add margin for spacing */
     }
 }
 
-/* Additional media query for larger mobile devices */
-@media only screen and (min-width: 320px) {
+@media screen and (min-width: 320px) {
     /* Styles for devices wider than 320px can go here */
 }
