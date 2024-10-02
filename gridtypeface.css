@@ -10,12 +10,13 @@ body {
   
   .container {
     display: grid;
-    /*  repeat creates 12 columns or rows at 1fr each  */
+    /*  Repeat creates 12 columns or rows at 1fr each  */
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(12, 1fr);
     height: 100vh;
     gap: 0.5em;
-  }
+}
+
   
   .container div {
 
