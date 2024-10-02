@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nostalgia Typeface</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff; /* Light background */
+            font-family: Arial, sans-serif;
+        }
+
+        .word {
+            display: flex;
+            gap: 15px; /* Space between letters */
+        }
+
+        .letter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            font-size: 40px; /* Larger font size for visibility */
+        }
+
+        /* N Letter */
+        .n {
+            height: 60px;
+            width: 30px;
+            border-left: 10px solid #ff69b4; /* Hot pink */
+            border-bottom: 10px solid #ff69b4;
+            transform: skewY(-20deg); /* Skew for a diagonal effect */
+        }
+
+        /* O Letter */
+        .o {
+            width: 50px;
+            height: 50px;
+            border: 10px solid #ff6347; /* Tomato */
+            border-radius: 50%; /* Circle */
+        }
+
+        /* S Letter */
+        .s {
+            width: 40px;
+            height: 60px;
+            background-color: #32cd32; /* Lime green */
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 25%, 50% 25%, 50% 75%, 100% 75%, 100% 100%, 0 100%);
+        }
+
+        /* T Letter */
+        .t {
+            width: 30px;
+            height: 60px;
+            position: relative;
+        }
+
+        .t::before {
+            content: '';
+            width: 50px;
+            height: 10px;
+            background-color: #4169e1; /* Royal blue */
+            position: absolute;
+            top: 0;
+            left: -10px; /* Center the T */
+        }
+
+        .t::after {
+            content: '';
+            width: 10px;
+            height: 60px;
+            background-color: #4169e1; /* Royal blue */
+            position: absolute;
+            top: 10px;
+            left: 10px; /* Center the T */
+        }
+
+        /* A Letter */
+        .a {
+            width: 50px;
+            height: 60px;
+            position: relative;
+            background-color: #ff1493; /* Deep pink */
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%); /* Triangle shape */
+        }
+
+        .a::after {
+            content: '';
+            width: 20px;
+            height: 10px;
+            background-color: #ff1493; /* Deep pink */
+            position: absolute;
+            top: 30px; /* Position the bar */
+            left: 15px; /* Center the bar */
+        }
+
+        /* G Letter */
+        .g {
+            width: 50px;
+            height: 50px;
+            border: 10px solid #ffa500; /* Orange */
+            border-radius: 50%; /* Circle */
+            position: relative;
+        }
+
+        .g::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #ffa500; /* Orange */
+            border-radius: 50%;
+            position: absolute;
+            top: 10px; /* Position the dot */
+            left: 20px; /* Center the dot */
+        }
+
+        /* I Letter */
+        .i {
+            width: 10px;
+            height: 60px;
+            background-color: #9370db; /* Medium purple */
+        }
+
+        /* Hover Effects */
+        .letter:hover {
+            transform: scale(1.1); /* Scale on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="word">
+        <div class="letter n"></div>
+        <div class="letter o"></div>
+        <div class="letter s"></div>
+        <div class="letter t"></div>
+        <div class="letter a"></div>
+        <div class="letter l"></div>
+        <div class="letter g"></div>
+        <div class="letter i"></div>
+        <div class="letter a"></div>
+    </div>
+</body>
+</html>

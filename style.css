@@ -3,14 +3,14 @@ body {
     font-family: Cambria, Cochin, serif;
     font-size: 25px;
     color: rgb(81, 20, 20);
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center content horizontally */
-    min-height: 100vh; /* Ensure full height */
-    justify-content: center; /* Center content vertically */
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    min-height: 100vh; 
+    justify-content: center;
+    transition: background-color 0.5s ease, color 0.5s ease; 
 }
 
 span {
@@ -63,5 +63,12 @@ h1 {
 }
 
 @media screen and (min-width: 320px) {
-    /* Styles for devices wider than 320px can go here */
+    
+}
+
+
+@media screen and (max-width:800px) {
+body {
+    background-color: rgb(200, 200, 255);
+}
 }

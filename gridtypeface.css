@@ -1,0 +1,340 @@
+body {
+    font-family: "Geostar Fill", "Arial", sans-serif;
+    font-size: 36px;
+    color:rgb(77, 15, 135);
+    letter-spacing: -0.03em;
+    background-color: #d19ad7;
+    /*  1em = font size declared in body, aka 36px  */
+    margin: 0.5em;
+  }
+  
+  .container {
+    display: grid;
+    /*  repeat creates 12 columns or rows at 1fr each  */
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    height: 100vh;
+    gap: 0.5em;
+  }
+  
+  .container div {
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .container .one {
+    grid-column-start: 3;
+    grid-column-end: 9;
+  }
+
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center;  
+    height: 100vh;        
+  }
+  
+  .container :hover {
+    color:#bb4ac7
+
+  } 
+
+  .two {
+    border-radius: 50%;
+    width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgb(228, 43, 197);
+  position: relative; 
+  }
+
+  .circle {
+    width: 40px;
+    height: 40px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+
+  .five, .nine {
+    width: 100px; /* Base width */
+    height: 100px; /* Height */
+    background-color: rgb(131, 127, 255);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: relative; 
+}
+
+.triangle {
+    width: 51px;
+    height: 51px;
+    background-color: #d19ad7; 
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    transform: translate(46%, 59%);
+}
+
+.one {
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    border-radius: 10%;
+    position: relative; 
+}
+
+.square {
+    width: 40px;
+    height: 61px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -17%);
+}
+
+ .four {
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+    background-color: aquamarine;
+    position: relative;
+
+}
+
+.squarez {
+    width: 40px;
+    height: 50px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(25%, -100%);
+    position: relative; 
+}
+
+.squarey {
+    width: 40px;
+    height: 50px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-125%, 0%);
+    position: relative; 
+}
+
+.six {
+    width: 50px;
+    height: 100px;
+    background-color: rgb(200, 255, 73);
+}
+
+.squarel {
+    width: 35px;
+    height: 70px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-9%, -72%);
+    position: relative; 
+}
+
+.eight {
+    width: 50px;
+    height: 88px;
+    background-color: rgb(228, 43, 197);
+}
+
+.circlei {
+    width: 35px;
+    height: 30px;
+    background-color: rgb(228, 43, 197); 
+    top: 50%;
+    left: 50%;
+    transform: translate(14%, -117%);
+    border-radius: 50%;
+}
+
+ .seven {
+    width: 60px;  /* Adjust width */
+    height: 100px; /* Adjust height */
+    border-radius: 50%;
+    background-color: aquamarine;
+}
+
+.circlee {
+    width: 28px;
+    height: 30px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, -100%);
+    border-radius: 50%;
+    position: relative; 
+}
+
+.circlea {
+    width: 40px;
+    height: 22px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%, -70%);
+    border-radius: 50%;
+    position: relative; 
+}
+
+.three {
+    width: 60px;  /* Adjust width */
+    height: 100px; /* Adjust height */
+    border-radius: 50%;
+    background-color: rgb(200, 255, 73);
+    position: relative;
+}
+
+.circles {
+    width: 35px;
+    height: 30px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-12%, -112%);
+    border-radius: 50%;
+    position: relative; 
+}
+
+.circlez {
+    width: 40px;
+    height: 40px;
+    background-color: #d19ad7; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -70%);
+    border-radius: 50%;
+    position: relative; 
+}
+
+
+
+
+
+
+
+
+
+
+  .two {
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.two:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.five {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.five:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.nine {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.nine:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+
+.one:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.one {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.two:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.two {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.four {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.four:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.six {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.six:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.seven {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.seven:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.eight {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.eight:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+.three {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.three:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+    
+}
+
+.container {
+   
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.container:hover {
+    transform: scale(1.2); /* Enlarge by 20% */
+}
+
+
+

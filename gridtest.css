@@ -1,0 +1,90 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #c6ffd6;
+}
+
+.typeface {
+    display: flex;
+    gap: 20px;
+}
+
+.letter {
+    width: 60px;
+    height: 100px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Shape 1 - resembles 'n' */
+.n {
+    background-color: #ff5733;
+    clip-path: polygon(50% 0%, 100% 90%, 0% 100%);
+}
+
+/* Shape 2 - resembles 'o' */
+.o {
+    background-color: #e36fea;
+    border-radius: 50%;
+}
+
+/* Shape 3 - resembles 's' */
+.s {
+    background-color: #33ff57;
+    border-radius: 20%;
+}
+
+/* Shape 4 - resembles 't' */
+.t {
+    display: grid;
+    place-items: center;
+    background-color: #337aff;
+    position: relative;
+}
+
+.t::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    background-color: white;
+}
+
+/* Shape 5 - resembles 'a' */
+.a {
+    background-color: #33aaff;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    transform: rotate(20deg);
+}
+
+/* Shape 6 - resembles 'l' */
+.l {
+    background-color: #cc33ff;
+}
+
+/* Shape 7 - resembles 'g' */
+.g {
+    background-color: #ff33cc;
+    width: 50px;
+    height: 100px;
+}
+
+/* Shape 8 - resembles 'i' */
+.i {
+    background-color: #33ccff;
+    border-radius: 50%;
+}
+
+/* Shape 9 - resembles 'a' */
+.a:last-of-type {
+    background-color: #ff3333;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+/* Hover effects */
+.letter:hover {
+    background-color: #ffffff;
+    transform: scale(1.1);
+}
