@@ -1,0 +1,38 @@
+#records {
+    height: min-content;
+    width: 100%;
+    padding: 10px;
+    background-image: url('wallpaper.jpg'); /* Ensure correct path */
+    box-shadow: 1px 1px 3px inset rgba(255, 255, 255, 0.311), -1px -1px 10px inset rgba(21, 0, 0, 0.311);
+    color: rgb(255, 255, 255);
+    letter-spacing: 0.2em;
+}
+
+body {
+    background-color: #963200;
+    background-attachment: fixed;
+    font-family: "MS UI Gothic", sans-serif;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: var(--offblack);
+}
+
+.mainContainer {
+    grid-area: main;
+    position: relative;
+    overflow: auto;
+    background-color: #d1ecff37;
+    box-shadow: -6px -5px 10px 3px #6761832a inset, 6px 5px 10px 3px #fffef32a inset;
+    backdrop-filter: blur(3px);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+/* CSS Variables */
+:root {
+    --accent: rgb(64, 110, 151);
+    --offblack: rgb(33, 33, 35);
+}

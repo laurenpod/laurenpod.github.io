@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Cover Carousel</title>
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide for Icons -->
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <style>
+        #records {
+            height: min-content;
+            width: 100%;
+            padding: 10px;
+            background-image: url('wallpaper.jpg');
+            box-shadow: 1px 1px 3px inset rgba(255, 255, 255, 0.311), -1px -1px 10px inset rgba(124, 84, 84, 0.311);
+            color: rgb(0, 0, 0);
+            letter-spacing: 0.2em;
+        }
+    
+        body {
+            background-color: #d2c1b8;
+            background-attachment: fixed;
+            font-family: "underdog", sans-serif;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            margin: 0;
+            padding: 0;
+            color: var(--offblack);
+        }
+    
+        :root {
+            --accent: rgb(26, 102, 168);
+            --offblack: rgb(37, 37, 107);
+        }
+
+        /* Center the carousel and shelf in the viewport */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            flex-direction: column;
+        }
+
+        /* Shelf under the carousel */
+        .shelf {
+            width: 0%;
+            height: 20px;
+            background-color: #5c4033;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            margin-top: -20px; /* Move shelf upwards slightly so it's under the carousel */
+        }
+
+        /* Adjusting the carousel container */
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+        }
+    </style>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        const { ChevronLeft, ChevronRight } = window.lucide || {};
+
+        const albumData = [
+            { id: 1, title: 'With the Beatles', artist: 'The Beatles', cover: 'beatles.jpeg' },
+            { id: 2, title: 'Phantasmagoria', artist: 'The Damned', cover: 'damned.jpg' },
+            { id: 3, title: 'IMPERA', artist: 'Ghost', cover: 'impera.jpg' },
+            { id: 4, title: 'Computer World', artist: 'Kraftwerk', cover: 'kraftwerk.jpg' },
+            { id: 5, title: 'Cake', artist: 'Trashcan Sinatras', cover: 'cake.jpeg' },
+            { id: 6, title: 'The Bends', artist: 'Radiohead', cover: 'thebends.png' },
+            { id: 7, title: 'I, Assasin', artist: 'Gary Numan', cover: 'numan.jpg' },
+            { id: 8, title: 'The Undertones', artist: 'The Undertones', cover: 'undertones.jpeg' },
+            { id: 9, title: 'Milo Goes to College', artist: 'Descendents', cover: 'milo.jpg' },
+            { id: 10, title: 'Tidal', artist: 'Fiona Apple', cover: 'tidal.png' },
+        ];
+
+        const AlbumCoverCarousel = () => {
+            const [startIndex, setStartIndex] = useState(0);
+
+            const nextAlbum = () => {
+                setStartIndex((prevIndex) => (prevIndex + 1) % albumData.length);
+            };
+
+            const prevAlbum = () => {
+                setStartIndex((prevIndex) => (prevIndex - 1 + albumData.length) % albumData.length);
+            };
+
+            return (
+                <div className="container">
+                    <div className="carousel-container">
+                        <h1 id="records">Record Collection</h1>
+                        <div className="relative overflow-hidden">
+                            <div className="flex items-end space-x-4 transition-transform duration-300 ease-in-out" 
+                                 style={{ transform: `translateX(-${startIndex * 208}px)` }}>
+                                {albumData.map((album, index) => (
+                                    <div key={album.id} className="flex-shrink-0 w-48 pb-8 transition-all duration-300 ease-in-out"
+                                         style={{ transform: `scale(${index === startIndex ? 1.05 : 0.95})` }}>
+                                        <img src={album.cover} alt={`${album.title} by ${album.artist}`} 
+                                             className="w-full h-48 object-cover shadow-lg rounded-md" />
+                                        <div className="mt-2 text-center">
+                                            <h3 className="font-semibold">{album.title}</h3>
+                                            <p className="text-sm text-gray-600">{album.artist}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <button onClick={prevAlbum} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full shadow-md">
+                                {ChevronLeft ? <ChevronLeft size={24} /> : "Prev"}
+                            </button>
+                            <button onClick={nextAlbum} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full shadow-md">
+                                {ChevronRight ? <ChevronRight size={24} /> : "Next"}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="shelf"></div> {/* Shelf below the carousel */}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<AlbumCoverCarousel />, document.getElementById('root'));
+    </script>
+</body>
+</html>
