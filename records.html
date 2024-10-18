@@ -20,14 +20,15 @@
             height: min-content;
             width: 100%;
             padding: 10px;
-            background-image: url('wallpaper.jpg');
             box-shadow: 1px 1px 3px inset rgba(255, 255, 255, 0.311), -1px -1px 10px inset rgba(124, 84, 84, 0.311);
             color: rgb(0, 0, 0);
             letter-spacing: 0.2em;
+            text-align: center; /* Center text in records */
         }
     
         body {
-            background-color: #d2c1b8;
+            background-color: #b7a196;
+            background-image:url('wallpaper.jpeg');
             background-attachment: fixed;
             font-family: "underdog", sans-serif;
             font-size: 0.9em;
@@ -45,31 +46,46 @@
         /* Center the carousel and shelf in the viewport */
         .container {
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Center the items horizontally */
             align-items: center;
             height: 100vh;
             position: relative;
             flex-direction: column;
+            width: 100%; /* Ensure container takes full width */
+        }
+
+        /* Carousel container */
+        .carousel-container {
+            width: 90%; /* Set width for the carousel */
+            max-width: 1200px; /* Max width to prevent stretching on large screens */
+            padding: 20px;
+    
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px; /* Space below the carousel */
+            margin-left: 10%; /* Add margin-left to move it to the right */
+            overflow: visible; /* Allow overflow for pop-out effect */
         }
 
         /* Shelf under the carousel */
         .shelf {
-            width: 0%;
+            width: 0%; /* Adjust width for visual preference */
             height: 20px;
             background-color: #5c4033;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
             margin-top: -20px; /* Move shelf upwards slightly so it's under the carousel */
         }
 
-        /* Adjusting the carousel container */
-        .carousel-container {
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 50px;
+        /* Hover effect for album covers */
+        .album-cover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .album-cover:hover {
+            transform: scale(1.15) translateY(-10px); /* Scale up and move up on hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Add stronger shadow on hover */
+            z-index: 10; /* Bring to the front */
         }
     </style>
     
@@ -104,7 +120,7 @@
             return (
                 <div className="container">
                     <div className="carousel-container">
-                        <h1 id="records">Record Collection</h1>
+                        <marquee><h1 id="records">Welcome to my Record Collection!</h1></marquee>
                         <div className="relative overflow-hidden">
                             <div className="flex items-end space-x-4 transition-transform duration-300 ease-in-out" 
                                  style={{ transform: `translateX(-${startIndex * 208}px)` }}>
@@ -112,7 +128,7 @@
                                     <div key={album.id} className="flex-shrink-0 w-48 pb-8 transition-all duration-300 ease-in-out"
                                          style={{ transform: `scale(${index === startIndex ? 1.05 : 0.95})` }}>
                                         <img src={album.cover} alt={`${album.title} by ${album.artist}`} 
-                                             className="w-full h-48 object-cover shadow-lg rounded-md" />
+                                             className="album-cover w-full h-48 object-cover shadow-lg rounded-md" />
                                         <div className="mt-2 text-center">
                                             <h3 className="font-semibold">{album.title}</h3>
                                             <p className="text-sm text-gray-600">{album.artist}</p>
