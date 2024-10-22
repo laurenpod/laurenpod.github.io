@@ -1,74 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Generative Identity</title>
-        <style type="text/css">
-            body {
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                background-color: #ffffff;
-                color: black;
-                margin: 0;
-                font-family: Helvetica, Arial, sans-serif;
-                font-size: 72px;
-                letter-spacing: -0.02em;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generative Identity</title>
+    <style type="text/css">
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #ffffff;
+            color: black;
+            margin: 0;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 72px;
+            letter-spacing: -0.02em;
+        }
 
-            main {
-                min-width: 100vw;
-                min-height: 100vh;
-                display: flex;
-                place-content: center;
-                align-items: center;
-            }
+        main {
+            min-width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            place-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
 
-            .bird-box img {
-                max-width: 800px;
-                height: auto;
-            }
-        </style>
-    </head>
+        .bird-box img {
+            max-width: 800px;
+            height: auto;
+        }
+    </style>
+</head>
 
-    <body>
-        <main>
-            <div class="bird-box">
-            </div>
-        </main>
-        <script type="text/javascript">
-            // Array of bird image URLs
-            let birdImages = [
-                "birdsofaudubon1.png",
-                "birdsofaudubon2.png",
-                "birdsofaudubon3.png",
-                "birdsofaudubon4.png",
-                "birdsofaudubon5.png",
-                "birdsofaudubon6.png",
-                "birdsofaudubon7.png",
-                "birdsofaudubon.png",
-            ];
+<body>
+    <main>
+        <div class="bird-box">
+        </div>
+    </main>
+    <script type="text/javascript">
+        // Array of bird image URLs
+        let birdImages = [
+            "birdsofaudubon1.png",
+            "birdsofaudubon2.png",
+            "birdsofaudubon3.png",
+            "birdsofaudubon4.png",
+            "birdsofaudubon5.png",
+            "birdsofaudubon6.png",
+            "birdsofaudubon7.png",
+            "birdsofaudubon.png",
+        ];
 
-            let random = Math.floor(Math.random() * birdImages.length);
-            let birdBox = document.querySelector(".bird-box");
+        // Array of background colors
+        let colors = ["#FFD1D1", "#EFD7C4", "#E0DDFF", "#D4F7D7"];
 
-            window.addEventListener("load", () => {
-                // Create an image element
-                let img = document.createElement("img");
-                // Set the src attribute to a random bird image
-                img.src = birdImages[random];
-                // Append the image to the bird box
-                birdBox.appendChild(img);
-            });
-
-            let colors = ["#FFD1D1", "#EFD7C4", "#E0DDFF", "#D4F7D7"];
+        // Function to generate random image and color
+        function generateRandomImageAndColor() {
+            let randomImage = Math.floor(Math.random() * birdImages.length);
             let randomColor = Math.floor(Math.random() * colors.length);
 
-            window.addEventListener("load", () => {
-                document.body.style.background = colors[randomColor];
-            });
-        </script>
-    </body>
+            let birdBox = document.querySelector(".bird-box");
+            birdBox.innerHTML = ''; // Clear current image
+
+            // Create an image element
+            let img = document.createElement("img");
+            // Set the src attribute to a random bird image
+            img.src = birdImages[randomImage];
+            // Append the image to the bird box
+            birdBox.appendChild(img);
+
+            // Change the background color
+            document.body.style.background = colors[randomColor];
+        }
+
+        window.addEventListener("load", () => {
+            // Generate the first random image and color when page loads
+            generateRandomImageAndColor();
+        });
+
+        // Add click event to the entire main element
+        document.querySelector("main").addEventListener("click", () => {
+            generateRandomImageAndColor();
+        });
+    </script>
+</body>
 
 </html>
