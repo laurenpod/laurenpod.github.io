@@ -38,8 +38,8 @@ ul, li {
 }
 
 h1 {
-    font-family: "Georgia";
-    font-size: 30px;
+    font-family: 'Arima Madurai', cursive;
+    font-size: 40px;
     transition: font-size 0.5s ease; 
 }
 

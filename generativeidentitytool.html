@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generative Identity Tool</title>
+    <style type="text/css">
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: black;
+            margin: 0;
+            font-family: georgia, Arial, sans-serif;
+            font-size: 72px;
+        }
+
+        /* Initial background for the main element */
+        main {
+            min-width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            place-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .bird-box img {
+            max-width: 500px;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label for="backgroundSelect">Choose Background:</label>
+        <select id="backgroundSelect">
+            <option value="kentucky.png">Field</option>
+            <option value="kentucky2.png">Horses</option>
+            <option value="kentucky3.png">Sunset</option>
+            <option value="kentucky4.png">State Park</option>
+            <option value="kentucky5.png">Museum</option>
+            <!-- Add more options as needed -->
+        </select>
+    </div>
+    <main>
+        <div class="bird-box"></div>
+    </main>
+    <script type="text/javascript">
+        let birdImages = [
+            "birdsofaudubon1.png",
+            "birdsofaudubon2.png",
+            "birdsofaudubon3.png",
+            "birdsofaudubon4.png",
+            "birdsofaudubon5.png",
+            "birdsofaudubon6.png",
+            "birdsofaudubon7.png",
+            "birdsofaudubon.png",
+        ];
+
+        let colors = ["#FFD1D1", "#EFD7C4", "#E0DDFF", "#D4F7D7"];
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        function generateRandomImageAndColor() {
+            let randomImage = Math.floor(Math.random() * birdImages.length);
+            let randomColor = Math.floor(Math.random() * colors.length);
+
+            let birdBox = document.querySelector(".bird-box");
+            birdBox.innerHTML = ''; // Clear current image
+
+            let img = document.createElement("img");
+            img.src = birdImages[randomImage];
+            birdBox.appendChild(img);
+
+            img.addEventListener("mousedown", startDrag);
+        }
+
+        function startDrag(event) {
+            isDragging = true;
+            const img = event.target;
+            offsetX = event.clientX - img.getBoundingClientRect().left;
+            offsetY = event.clientY - img.getBoundingClientRect().top;
+            img.style.cursor = "grabbing";
+
+            document.addEventListener("mousemove", drag);
+            document.addEventListener("mouseup", stopDrag);
+        }
+
+        function drag(event) {
+            if (!isDragging) return;
+            const img = document.querySelector(".bird-box img");
+            img.style.left = `${event.clientX - offsetX}px`;
+            img.style.top = `${event.clientY - offsetY}px`;
+            img.style.transform = "none"; // Remove initial center transform after drag starts
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            const img = document.querySelector(".bird-box img");
+            img.style.cursor = "grab";
+
+            document.removeEventListener("mousemove", drag);
+            document.removeEventListener("mouseup", stopDrag);
+        }
+
+        // Function to change the background image based on user selection
+        function changeBackground() {
+            const mainElement = document.querySelector("main");
+            const selectedBackground = document.getElementById("backgroundSelect").value;
+            mainElement.style.backgroundImage = `url(${selectedBackground})`;
+        }
+
+        // Event listener for background select dropdown
+        document.getElementById("backgroundSelect").addEventListener("change", changeBackground);
+
+        window.addEventListener("load", () => {
+            generateRandomImageAndColor();
+            changeBackground(); // Set initial background based on default selection
+        });
+
+        document.querySelector("main").addEventListener("click", generateRandomImageAndColor);
+    </script>
+</body>
+</html>
