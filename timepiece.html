@@ -3,83 +3,310 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vintage Clock with Embedded Radio</title>
+  <title>Interactive Radio Dial</title>
+  
+  <!-- FlipClock CSS -->
   <style>
-    body {
-      background-color: rgb(239, 239, 219);
+    .flip-clock-wrapper {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999; /* Ensure it’s on top */
+    }
+
+    .flip-clock {
+      font-family: 'Arial', sans-serif;
+      font-size: 40px;
+      color: #fff;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    .flip-clock .clock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flip-clock .clock .flip {
+      background-color: #333;
+      border: 1px solid #222;
+      margin: 0 2px;
+      width: 50px;
+      height: 70px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .flip-clock .clock .flip .top,
+    .flip-clock .clock .flip .bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      line-height: 35px;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .flip-clock .clock .flip .top {
+      top: 0;
+    }
+
+    .flip-clock .clock .flip .bottom {
+      bottom: 0;
+    }
+
+    .flip-clock .clock .flip .flip-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .flip-clock .clock .flip .flip-inner .flip-bottom {
+      transform: rotateX(180deg);
+    }
+  </style>
+  
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
+      background-color: rgb(239, 239, 219);
       font-family: 'Cochin', serif;
+      position: relative;
     }
 
-    .digital-clock {
-      background: linear-gradient(rgb(0, 0, 0), rgb(30, 30, 30));
-      border: 8px solid rgb(255, 215, 150);
-      border-radius: 10px;
-      padding: 20px 40px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-      margin-bottom: 20px;
+    .radio-wrapper {
+      width: 300px;
+      height: 300px;
+      background-image: url('dial.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      cursor: grab;
+      transform-origin: center;
+      position: relative;
+      z-index: 1;
     }
 
-    .time {
-      color: rgb(255, 215, 150);
-      font-size: 3rem;
-      font-weight: bold;
-      font-family: 'Cochin', serif;
-      text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
-    }
-
-    .embedded-radio {
+    .radio-player {
+      width: 100%;
+      max-width: 340px;
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="digital-clock">
-    <span class="time">--:--:--</span>
-  </div>
-  <div class="embedded-radio">
-    <script>
-      (function (d, s) {
-        if (!window.rel) {
-          s = d.createElement("script");
-          s.type = "text/javascript";
-          s.async = true;
-          s.id = "radio-de-embedded";
-          s.src = "https://www.radio.net/inc/microsite/js/full.js";
-          d.getElementsByTagName("head")[0].appendChild(s);
-          window.rel = true;
-        }
-      })(document);
-    </script>
-    <div class="ng-app-embedded">
-      <div ui-view class="microsite embedded-radio-player" 
-           data-playerwidth="340px" 
-           data-playertype="web_embedded" 
-           data-playstation="prw40s" 
-           data-autoplay="true" 
-           data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93">
+
+  <!-- Flip Clock -->
+  <div class="flip-clock-wrapper">
+    <div class="flip-clock">
+      <div class="clock">
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
       </div>
     </div>
-    <noscript>
-      <a href="https://www.radio.net/s/prw40s" target="_blank">Positively 40s on radio.net</a>
-    </noscript>
   </div>
 
+  <!-- Vintage Radio Dial -->
+  <div class="radio-wrapper" id="dial"></div>
+
+  <!-- Radio Player -->
+  <div class="ng-app-embedded radio-player">
+    <div ui-view 
+         class="microsite embedded-radio-player" 
+         data-playerwidth="340px" 
+         data-playertype="web_embedded" 
+         data-playstation="cladrite" 
+         data-autoplay="true" 
+         data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93">
+    </div>
+  </div>
+
+  <!-- Embed Script -->
   <script>
-    const updateDigitalClock = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      document.querySelector('.time').textContent = `${hours}:${minutes}:${seconds}`;
+    (function(d, s) {
+      if (!window.rel) {
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.id = "radio-de-embedded";
+        s.src = "https://www.radio.net/inc/microsite/js/full.js";
+        d.getElementsByTagName("head")[0].appendChild(s);
+        window.rel = true;
+      }
+    }(document));
+
+    // Drag and Rotate Dial
+    const dial = document.getElementById('dial');
+    let isDragging = false;
+    let initialAngle = 0;
+
+    dial.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      dial.style.cursor = 'grabbing';
+
+      // Get the angle relative to the center of the dial
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Calculate starting angle
+      const dx = event.clientX - centerX;
+      const dy = event.clientY - centerY;
+      initialAngle = Math.atan2(dy, dx) * (180 / Math.PI) - (dial.rotation || 0);
+    });
+
+    document.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
+
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Calculate angle during dragging
+      const dx = event.clientX - centerX;
+      const dy = event.clientY - centerY;
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) - initialAngle;
+
+      // Rotate dial
+      dial.style.transform = `rotate(${angle}deg)`;
+      dial.rotation = angle;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      dial.style.cursor = 'grab';
+    });
+    
+    // Initialize the Flip Clock
+    var clock = {
+      clock: document.querySelector('.clock'),
+      time: [0, 0, 0, 0, 0, 0],  // Hours, Minutes, Seconds, and Hundredths
+
+      start: function() {
+        this.setCurrentTime();
+        setInterval(this.update.bind(this), 1000); // Update every second
+      },
+
+      setCurrentTime: function() {
+        const now = new Date();
+        // Set the time to New York time (Eastern Time)
+        const newYorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+        
+        let hours = newYorkTime.getHours();
+        const minutes = newYorkTime.getMinutes();
+        const seconds = newYorkTime.getSeconds();
+
+        // Convert to 12-hour format
+        const period = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+
+        this.time = [
+          Math.floor(hours / 10), hours % 10,
+          Math.floor(minutes / 10), minutes % 10,
+          Math.floor(seconds / 10), seconds % 10
+        ];
+
+        this.render(period);
+      },
+
+      update: function() {
+        const now = new Date();
+        const newYorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+
+        this.time[5] += 1;
+        if (this.time[5] >= 10) {
+          this.time[5] = 0;
+          this.time[4] += 1;
+        }
+
+        if (this.time[4] >= 6) {
+          this.time[4] = 0;
+          this.time[3] += 1;
+        }
+
+        if (this.time[3] >= 10) {
+          this.time[3] = 0;
+          this.time[2] += 1;
+        }
+
+        if (this.time[2] >= 6) {
+          this.time[2] = 0;
+          this.time[1] += 1;
+        }
+
+        if (this.time[1] >= 10) {
+          this.time[1] = 0;
+          this.time[0] += 1;
+        }
+
+        this.render(newYorkTime.getHours() >= 12 ? 'PM' : 'AM');
+      },
+
+      render: function(period) {
+        let i = 0;
+        const digits = this.clock.querySelectorAll('.flip');
+        
+        digits.forEach(function(digit) {
+          const inner = digit.querySelector('.flip-inner');
+          const top = inner.querySelector('.top');
+          const bottom = inner.querySelector('.bottom');
+
+          top.textContent = this.time[i];
+          bottom.textContent = this.time[i];
+
+          i++;
+        });
+        
+        // Update the AM/PM period
+        const periodEl = document.createElement('div');
+        periodEl.textContent = period;
+        this.clock.appendChild(periodEl);
+      }
     };
-    setInterval(updateDigitalClock, 1000);
-    updateDigitalClock();
+
+    // Start the clock
+    window.addEventListener('load', function() {
+      clock.start();
+    });
   </script>
+
 </body>
 </html>
