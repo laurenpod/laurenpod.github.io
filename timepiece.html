@@ -3,20 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Radio Dial</title>
-  
-  <!-- FlipClock CSS -->
+  <title>TIme Piece</title>
+
   <style>
+    /* Flip Clock CSS */
+
+    .period {
+  font-size: 28px;
+  margin-left: 10px; /* Space after the clock */
+  color: #ffffff00;
+}
     .flip-clock-wrapper {
       position: absolute;
-      top: 20px;
+      top: 450px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 999; /* Ensure it’s on top */
+      z-index: 999; /* Ensure it's on top */
     }
 
     .flip-clock {
-      font-family: 'Arial', sans-serif;
+      font-family: 'georgia', sans-serif;
       font-size: 40px;
       color: #fff;
       display: flex;
@@ -24,18 +30,18 @@
       align-items: center;
     }
 
-    .flip-clock .clock {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.flip-clock .clock {
+  display: flex;
+  justify-content: space-between;
+  gap: 37px; /* Adjust the value to control spacing */
+}
 
     .flip-clock .clock .flip {
       background-color: #333;
       border: 1px solid #222;
       margin: 0 2px;
-      width: 50px;
-      height: 70px;
+      width: 90px;
+      height: 90px;
       display: inline-block;
       position: relative;
     }
@@ -46,7 +52,7 @@
       width: 100%;
       height: 50%;
       background-color: #222;
-      color: #fff;
+      color: #ffffff;
       text-align: center;
       line-height: 35px;
       font-size: 35px;
@@ -68,44 +74,70 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease-in-out;
     }
 
-    .flip-clock .clock .flip .flip-inner .flip-bottom {
+    .flip-clock .clock .flip.flip-inner.flip-animation {
       transform: rotateX(180deg);
     }
-  </style>
-  
-  <style>
+
+    .flip-clock .clock .flip .top,
+    .flip-clock .clock .flip .bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background-color: #222;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      font-size: 35px;
+      font-weight: bold;
+      backface-visibility: hidden;
+    }
+
+    .flip-clock .clock .flip .bottom {
+      transform: rotateX(180deg);
+    }
+
+    /* Additional styles for the page */
     body {
+  background-image: url('afternoon.png'); /* Replace with the path to your image */
+  background-size: cover; /* Ensures the image covers the whole screen */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
-      background-color: rgb(239, 239, 219);
+      background-color: rgb(186, 168, 145);
       font-family: 'Cochin', serif;
       position: relative;
     }
-
     .radio-wrapper {
-      width: 300px;
-      height: 300px;
-      background-image: url('dial.jpg');
-      background-size: cover;
-      background-position: center;
-      border-radius: 50%;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      cursor: grab;
-      transform-origin: center;
-      position: relative;
-      z-index: 1;
-    }
+  width: 80px; /* Set the dial's width */
+  height: 80px; /* Set the dial's height */
+  background-image: url('dial.jpg'); /* Ensure the image path is correct */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: grab;
+  position: absolute; /* Allow precise positioning */
+  right: 246px; /* Move the dial to the right of the screen */
+  top: 546px; /* Adjust the vertical position */
+  transform-origin: center;
+  z-index: 1; /* Keep it above other elements */
+}
+
 
     .radio-player {
-      width: 100%;
-      max-width: 340px;
-      margin-top: 20px;
+      width: 20%;
+      max-width: 5px;
+      margin-top: 290px;
+      margin-right: 96px;
     }
   </style>
 </head>
@@ -181,12 +213,10 @@
       isDragging = true;
       dial.style.cursor = 'grabbing';
 
-      // Get the angle relative to the center of the dial
       const rect = dial.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      // Calculate starting angle
       const dx = event.clientX - centerX;
       const dy = event.clientY - centerY;
       initialAngle = Math.atan2(dy, dx) * (180 / Math.PI) - (dial.rotation || 0);
@@ -199,12 +229,10 @@
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      // Calculate angle during dragging
       const dx = event.clientX - centerX;
       const dy = event.clientY - centerY;
       const angle = Math.atan2(dy, dx) * (180 / Math.PI) - initialAngle;
 
-      // Rotate dial
       dial.style.transform = `rotate(${angle}deg)`;
       dial.rotation = angle;
     });
@@ -213,30 +241,28 @@
       isDragging = false;
       dial.style.cursor = 'grab';
     });
-    
+
     // Initialize the Flip Clock
     var clock = {
       clock: document.querySelector('.clock'),
-      time: [0, 0, 0, 0, 0, 0],  // Hours, Minutes, Seconds, and Hundredths
+      time: [0, 0, 0, 0, 0, 0],
 
       start: function() {
         this.setCurrentTime();
-        setInterval(this.update.bind(this), 1000); // Update every second
+        setInterval(this.update.bind(this), 1000);
       },
 
       setCurrentTime: function() {
         const now = new Date();
-        // Set the time to New York time (Eastern Time)
         const newYorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
         
         let hours = newYorkTime.getHours();
         const minutes = newYorkTime.getMinutes();
         const seconds = newYorkTime.getSeconds();
 
-        // Convert to 12-hour format
         const period = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
-        hours = hours ? hours : 12; // The hour '0' should be '12'
+        hours = hours ? hours : 12;
 
         this.time = [
           Math.floor(hours / 10), hours % 10,
@@ -283,29 +309,46 @@
       render: function(period) {
         let i = 0;
         const digits = this.clock.querySelectorAll('.flip');
-        
-        digits.forEach(function(digit) {
+
+        digits.forEach((digit) => {
           const inner = digit.querySelector('.flip-inner');
           const top = inner.querySelector('.top');
           const bottom = inner.querySelector('.bottom');
 
-          top.textContent = this.time[i];
-          bottom.textContent = this.time[i];
+          // Add the flip animation class
+          inner.classList.add('flip-animation');
+          
+          // After the animation ends, remove the animation class for the next time
+          inner.addEventListener('transitionend', () => {
+            inner.classList.remove('flip-animation');
+          });
+
+          // Update the top and bottom text content
+          const newTop = this.time[i];
+          const newBottom = this.time[i];
+          
+          if (top.textContent !== newTop) {
+            top.textContent = newTop;
+          }
+          if (bottom.textContent !== newBottom) {
+            bottom.textContent = newBottom;
+          }
 
           i++;
         });
-        
+
         // Update the AM/PM period
-        const periodEl = document.createElement('div');
+        let periodEl = document.querySelector('.period');
+        if (!periodEl) {
+          periodEl = document.createElement('div');
+          periodEl.classList.add('period');
+          this.clock.appendChild(periodEl);
+        }
         periodEl.textContent = period;
-        this.clock.appendChild(periodEl);
       }
     };
 
-    // Start the clock
-    window.addEventListener('load', function() {
-      clock.start();
-    });
+    clock.start(); // Start the clock
   </script>
 
 </body>
