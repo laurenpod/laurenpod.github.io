@@ -7,7 +7,6 @@
 
   <style>
     /* Flip Clock CSS */
-
     body {
       margin: 0;
       padding: 0;
@@ -197,20 +196,24 @@
     // Function to update the time on the clock
     function updateClock() {
       const now = new Date();
-      const nyTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/New_York",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      }).formatToParts(now);
+      const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      let hours = nyTime.getHours();
+      const minutes = nyTime.getMinutes();
 
-      const hours = nyTime[0].value;
-      const minutes = nyTime[2].value;
+      // Convert to 12-hour format
+      hours = hours % 12 || 12; // Adjust hours to be in the range 1-12
 
-      updateDigit('hourTens', Math.floor(hours / 10));
-      updateDigit('hourOnes', hours % 10);
-      updateDigit('minuteTens', Math.floor(minutes / 10));
-      updateDigit('minuteOnes', minutes % 10);
+      // If the hour is a single digit, show a leading zero
+      if (hours < 10) {
+        updateDigit('hourTens', 0); // Show zero in the tens place
+        updateDigit('hourOnes', hours); // Show the hour in the ones place
+      } else {
+        updateDigit('hourTens', Math.floor(hours / 10)); // Handle tens place
+        updateDigit('hourOnes', hours % 10); // Handle ones place
+      }
+
+      updateDigit('minuteTens', Math.floor(minutes / 10)); // Handle tens place of minutes
+      updateDigit('minuteOnes', minutes % 10); // Handle ones place of minutes
     }
 
     function updateDigit(id, value) {
@@ -219,18 +222,37 @@
       const bottom = digit.querySelector('.bottom');
 
       if (top.textContent !== value.toString()) {
-        bottom.textContent = top.textContent; // Move current top value to bottom
-        top.textContent = value; // Update top with the new value
+        const newTop = document.createElement('div');
+        newTop.classList.add('top', 'new');
+        newTop.textContent = value;
+
+        const newBottom = document.createElement('div');
+        newBottom.classList.add('bottom', 'new');
+        newBottom.textContent = value;
+
+        digit.appendChild(newTop);
+        digit.appendChild(newBottom);
+
+        setTimeout(() => {
+          top.classList.add('old');
+          newTop.style.transform = 'rotateX(-90deg)';
+          newBottom.style.transform = 'rotateX(0deg)';
+        }, 50);
+
+        setTimeout(() => {
+          top.remove();
+          bottom.remove();
+          newTop.classList.remove('new');
+          newBottom.classList.remove('new');
+        }, 500);
       }
     }
 
     // Function to update the background image based on time
     function updateBackgroundImage() {
       const now = new Date();
-      const hours = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/New_York",
-        hour: "numeric"
-      }).format(now);
+      const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      const hours = nyTime.getHours();
 
       if (hours >= 4 && hours < 12) {
         document.body.style.backgroundImage = "url('morning.png')";
@@ -247,6 +269,6 @@
     setInterval(updateClock, 1000); // Update the clock every second
     setInterval(updateBackgroundImage, 60000); // Check for background change every minute
   </script>
-
 </body>
 </html>
+
