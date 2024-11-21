@@ -99,25 +99,25 @@
   <div class="flip-clock-wrapper">
     <div class="flip-clock">
       <div class="clock">
-        <div class="flip">
+        <div class="flip" id="hourTens">
           <div class="flip-inner">
             <div class="top">0</div>
             <div class="bottom">0</div>
           </div>
         </div>
-        <div class="flip">
+        <div class="flip" id="hourOnes">
           <div class="flip-inner">
             <div class="top">0</div>
             <div class="bottom">0</div>
           </div>
         </div>
-        <div class="flip">
+        <div class="flip" id="minuteTens">
           <div class="flip-inner">
             <div class="top">0</div>
             <div class="bottom">0</div>
           </div>
         </div>
-        <div class="flip">
+        <div class="flip" id="minuteOnes">
           <div class="flip-inner">
             <div class="top">0</div>
             <div class="bottom">0</div>
@@ -194,10 +194,43 @@
       dial.style.cursor = 'grab';
     });
 
+    // Function to update the time on the clock
+    function updateClock() {
+      const now = new Date();
+      const nyTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).formatToParts(now);
+
+      const hours = nyTime[0].value;
+      const minutes = nyTime[2].value;
+
+      updateDigit('hourTens', Math.floor(hours / 10));
+      updateDigit('hourOnes', hours % 10);
+      updateDigit('minuteTens', Math.floor(minutes / 10));
+      updateDigit('minuteOnes', minutes % 10);
+    }
+
+    function updateDigit(id, value) {
+      const digit = document.getElementById(id);
+      const top = digit.querySelector('.top');
+      const bottom = digit.querySelector('.bottom');
+
+      if (top.textContent !== value.toString()) {
+        bottom.textContent = top.textContent; // Move current top value to bottom
+        top.textContent = value; // Update top with the new value
+      }
+    }
+
     // Function to update the background image based on time
     function updateBackgroundImage() {
       const now = new Date();
-      const hours = now.getHours();
+      const hours = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "numeric"
+      }).format(now);
 
       if (hours >= 4 && hours < 12) {
         document.body.style.backgroundImage = "url('morning.png')";
@@ -209,7 +242,9 @@
     }
 
     // Initialize the Flip Clock and Background
+    updateClock();
     updateBackgroundImage();
+    setInterval(updateClock, 1000); // Update the clock every second
     setInterval(updateBackgroundImage, 60000); // Check for background change every minute
   </script>
 
