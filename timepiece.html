@@ -3,97 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TIme Piece</title>
+  <title>Time Piece</title>
 
   <style>
     /* Flip Clock CSS */
 
     body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('afternoon.png'); /* Replace with your background image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: 'Cochin', serif;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Cochin', serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.container {
-  position: relative;
-  width: 90vw; /* Make the container responsive */
-  height: 90vh;
-}
+    .container {
+      position: relative;
+      width: 90vw; /* Make the container responsive */
+      height: 90vh;
+    }
 
-.flip-clock-wrapper {
-  position: absolute;
-  top: 55%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -56%); /* Offset for centering */
-  z-index: 999;
-  width: 50%; /* Responsive size */
-}
+    .flip-clock-wrapper {
+      position: absolute;
+      top: 55%; /* Center vertically */
+      left: 47%; /* Center horizontally */
+      transform: translate(-50%, -56%); /* Offset for centering */
+      z-index: 999;
+      width: 50%; /* Responsive size */
+    }
 
-.flip-clock {
-  font-family: 'Georgia', sans-serif;
-  font-size: 2.5vw; /* Scales with viewport width */
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .flip-clock {
+      font-family: 'Georgia', sans-serif;
+      font-size: 2.5vw; /* Scales with viewport width */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.flip-clock .clock {
-  display: flex;
-  gap: 2vw; /* Responsive spacing between digits */
-}
+    .flip-clock .clock {
+      display: flex;
+      gap: 2vw; /* Responsive spacing between digits */
+    }
 
-.flip-clock .clock .flip {
-  background-color: #333;
-  border: 0.1vw solid #222;
-  width: 8vw; /* Digit size scales with viewport */
-  height: 8vw;
-  position: relative;
-}
+    .flip-clock .clock .flip {
+      background-color: #333;
+      border: 0.1vw solid #222;
+      width: 8vw; /* Digit size scales with viewport */
+      height: 8vw;
+      position: relative;
+    }
 
-.flip-clock .clock .flip .top,
-.flip-clock .clock .flip .bottom {
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  background-color: #222;
-  color: #fff;
-  text-align: center;
-  font-size: 2vw;
-  font-weight: bold;
-  line-height: 4vw; /* Match half the height */
-}
+    .flip-clock .clock .flip .top,
+    .flip-clock .clock .flip .bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      font-size: 2vw;
+      font-weight: bold;
+      line-height: 4vw; /* Match half the height */
+    }
 
-.radio-wrapper {
-  width: 10vw; /* Scales with viewport width */
-  height: 10vw;
-  background-image: url('dial.jpg'); /* Replace with your dial image */
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-  position: absolute;
-  right: 33%; /* Responsive positioning */
-  bottom: 23%; /* Responsive positioning */
-}
+    .radio-wrapper {
+      width: 10vw; /* Scales with viewport width */
+      height: 10vw;
+      background-image: url('dial.jpg'); /* Replace with your dial image */
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      position: absolute;
+      right: 32%; /* Responsive positioning */
+      bottom: 27%; /* Responsive positioning */
+    }
 
-.radio-player {
-  width: 30vw; /* Responsive width */
-  position: absolute;
-  top: 0%;
-  right: 0%;
-}
-
-
+    .radio-player {
+      width: 30vw; /* Responsive width */
+      position: absolute;
+      top: 0%;
+      right: 0%;
+    }
   </style>
 </head>
 <body>
@@ -197,113 +194,23 @@
       dial.style.cursor = 'grab';
     });
 
-    // Initialize the Flip Clock
-    var clock = {
-      clock: document.querySelector('.clock'),
-      time: [0, 0, 0, 0, 0, 0],
+    // Function to update the background image based on time
+    function updateBackgroundImage() {
+      const now = new Date();
+      const hours = now.getHours();
 
-      start: function() {
-        this.setCurrentTime();
-        setInterval(this.update.bind(this), 1000);
-      },
-
-      setCurrentTime: function() {
-        const now = new Date();
-        const newYorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-        
-        let hours = newYorkTime.getHours();
-        const minutes = newYorkTime.getMinutes();
-        const seconds = newYorkTime.getSeconds();
-
-        const period = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-
-        this.time = [
-          Math.floor(hours / 10), hours % 10,
-          Math.floor(minutes / 10), minutes % 10,
-          Math.floor(seconds / 10), seconds % 10
-        ];
-
-        this.render(period);
-      },
-
-      update: function() {
-        const now = new Date();
-        const newYorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-
-        this.time[5] += 1;
-        if (this.time[5] >= 10) {
-          this.time[5] = 0;
-          this.time[4] += 1;
-        }
-
-        if (this.time[4] >= 6) {
-          this.time[4] = 0;
-          this.time[3] += 1;
-        }
-
-        if (this.time[3] >= 10) {
-          this.time[3] = 0;
-          this.time[2] += 1;
-        }
-
-        if (this.time[2] >= 6) {
-          this.time[2] = 0;
-          this.time[1] += 1;
-        }
-
-        if (this.time[1] >= 10) {
-          this.time[1] = 0;
-          this.time[0] += 1;
-        }
-
-        this.render(newYorkTime.getHours() >= 12 ? 'PM' : 'AM');
-      },
-
-      render: function(period) {
-        let i = 0;
-        const digits = this.clock.querySelectorAll('.flip');
-
-        digits.forEach((digit) => {
-          const inner = digit.querySelector('.flip-inner');
-          const top = inner.querySelector('.top');
-          const bottom = inner.querySelector('.bottom');
-
-          // Add the flip animation class
-          inner.classList.add('flip-animation');
-          
-          // After the animation ends, remove the animation class for the next time
-          inner.addEventListener('transitionend', () => {
-            inner.classList.remove('flip-animation');
-          });
-
-          // Update the top and bottom text content
-          const newTop = this.time[i];
-          const newBottom = this.time[i];
-          
-          if (top.textContent !== newTop) {
-            top.textContent = newTop;
-          }
-          if (bottom.textContent !== newBottom) {
-            bottom.textContent = newBottom;
-          }
-
-          i++;
-        });
-
-        // Update the AM/PM period
-        let periodEl = document.querySelector('.period');
-        if (!periodEl) {
-          periodEl = document.createElement('div');
-          periodEl.classList.add('period');
-          this.clock.appendChild(periodEl);
-        }
-        periodEl.textContent = period;
+      if (hours >= 4 && hours < 12) {
+        document.body.style.backgroundImage = "url('morning.png')";
+      } else if (hours >= 12 && hours < 18) {
+        document.body.style.backgroundImage = "url('afternoon.png')";
+      } else {
+        document.body.style.backgroundImage = "url('evening.png')";
       }
-    };
+    }
 
-    clock.start(); // Start the clock
+    // Initialize the Flip Clock and Background
+    updateBackgroundImage();
+    setInterval(updateBackgroundImage, 60000); // Check for background change every minute
   </script>
 
 </body>
