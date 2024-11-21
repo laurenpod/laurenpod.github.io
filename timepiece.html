@@ -8,137 +8,92 @@
   <style>
     /* Flip Clock CSS */
 
-    .period {
-  font-size: 28px;
-  margin-left: 10px; /* Space after the clock */
-  color: #ffffff00;
+    body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('afternoon.png'); /* Replace with your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Cochin', serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-    .flip-clock-wrapper {
-      position: absolute;
-      top: 450px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999; /* Ensure it's on top */
-    }
 
-    .flip-clock {
-      font-family: 'georgia', sans-serif;
-      font-size: 40px;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.container {
+  position: relative;
+  width: 90vw; /* Make the container responsive */
+  height: 90vh;
+}
+
+.flip-clock-wrapper {
+  position: absolute;
+  top: 55%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -56%); /* Offset for centering */
+  z-index: 999;
+  width: 50%; /* Responsive size */
+}
+
+.flip-clock {
+  font-family: 'Georgia', sans-serif;
+  font-size: 2.5vw; /* Scales with viewport width */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .flip-clock .clock {
   display: flex;
-  justify-content: space-between;
-  gap: 37px; /* Adjust the value to control spacing */
+  gap: 2vw; /* Responsive spacing between digits */
 }
 
-    .flip-clock .clock .flip {
-      background-color: #333;
-      border: 1px solid #222;
-      margin: 0 2px;
-      width: 90px;
-      height: 90px;
-      display: inline-block;
-      position: relative;
-    }
+.flip-clock .clock .flip {
+  background-color: #333;
+  border: 0.1vw solid #222;
+  width: 8vw; /* Digit size scales with viewport */
+  height: 8vw;
+  position: relative;
+}
 
-    .flip-clock .clock .flip .top,
-    .flip-clock .clock .flip .bottom {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background-color: #222;
-      color: #ffffff;
-      text-align: center;
-      line-height: 35px;
-      font-size: 35px;
-      font-weight: bold;
-    }
+.flip-clock .clock .flip .top,
+.flip-clock .clock .flip .bottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  font-size: 2vw;
+  font-weight: bold;
+  line-height: 4vw; /* Match half the height */
+}
 
-    .flip-clock .clock .flip .top {
-      top: 0;
-    }
-
-    .flip-clock .clock .flip .bottom {
-      bottom: 0;
-    }
-
-    .flip-clock .clock .flip .flip-inner {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transition: transform 0.6s ease-in-out;
-    }
-
-    .flip-clock .clock .flip.flip-inner.flip-animation {
-      transform: rotateX(180deg);
-    }
-
-    .flip-clock .clock .flip .top,
-    .flip-clock .clock .flip .bottom {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background-color: #222;
-      color: #ffffff;
-      text-align: center;
-      line-height: 35px;
-      font-size: 35px;
-      font-weight: bold;
-      backface-visibility: hidden;
-    }
-
-    .flip-clock .clock .flip .bottom {
-      transform: rotateX(180deg);
-    }
-
-    /* Additional styles for the page */
-    body {
-  background-image: url('afternoon.png'); /* Replace with the path to your image */
-  background-size: cover; /* Ensures the image covers the whole screen */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: rgb(186, 168, 145);
-      font-family: 'Cochin', serif;
-      position: relative;
-    }
-    .radio-wrapper {
-  width: 80px; /* Set the dial's width */
-  height: 80px; /* Set the dial's height */
-  background-image: url('dial.jpg'); /* Ensure the image path is correct */
+.radio-wrapper {
+  width: 10vw; /* Scales with viewport width */
+  height: 10vw;
+  background-image: url('dial.jpg'); /* Replace with your dial image */
   background-size: cover;
   background-position: center;
   border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  cursor: grab;
-  position: absolute; /* Allow precise positioning */
-  right: 246px; /* Move the dial to the right of the screen */
-  top: 546px; /* Adjust the vertical position */
-  transform-origin: center;
-  z-index: 1; /* Keep it above other elements */
+  position: absolute;
+  right: 33%; /* Responsive positioning */
+  bottom: 23%; /* Responsive positioning */
+}
+
+.radio-player {
+  width: 30vw; /* Responsive width */
+  position: absolute;
+  top: 0%;
+  right: 0%;
 }
 
 
-    .radio-player {
-      width: 20%;
-      max-width: 5px;
-      margin-top: 290px;
-      margin-right: 96px;
-    }
   </style>
 </head>
 <body>
