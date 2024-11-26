@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Piece</title>
+
+  <style>
+    /* Flip Clock CSS */
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'georgia', serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      width: 90vw; /* Make the container responsive */
+      height: 90vh;
+    }
+
+    .flip-clock-wrapper {
+  position: absolute;
+  top: 65%; /* Adjust this to move it down */
+  left: 50%; /* Keep it centered horizontally */
+  transform: translate(-60%, -178%); /* Adjusted for better centering */
+  z-index: 999;
+  width: 50%; /* Responsive size */
+}
+
+
+    .flip-clock {
+      font-family: 'arial', sans-serif;
+      font-size: 2.5vw; /* Scales with viewport width */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flip-clock .clock {
+      display: flex;
+      gap: 2vw; /* Responsive spacing between digits */
+    }
+
+    .flip-clock .clock .flip {
+      background-color: #333;
+      border: 0.1vw solid #222;
+      width: 8vw; /* Digit size scales with viewport */
+      height: 8vw;
+      position: relative;
+    }
+
+.flip-clock .clock .flip .top,
+.flip-clock .clock .flip .bottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  font-size: 6vw; /* Scales with viewport */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(15%); /* Move the numbers down */
+}
+
+
+
+
+    .radio-wrapper {
+      width: 10vw; /* Scales with viewport width */
+      height: 10vw;
+      background-image: url('dial.jpg'); /* Replace with your dial image */
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      position: absolute;
+      right: 32%; /* Responsive positioning */
+      bottom: 27%; /* Responsive positioning */
+    }
+
+    .radio-player {
+      width: 30vw; /* Responsive width */
+      position: absolute;
+      top: 0%;
+      right: 0%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Flip Clock -->
+  <div class="flip-clock-wrapper">
+    <div class="flip-clock">
+      <div class="clock">
+        <div class="flip" id="hourTens">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip" id="hourOnes">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip" id="minuteTens">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+        <div class="flip" id="minuteOnes">
+          <div class="flip-inner">
+            <div class="top">0</div>
+            <div class="bottom">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vintage Radio Dial -->
+  <div class="radio-wrapper" id="dial"></div>
+
+  <!-- Radio Player -->
+  <div class="ng-app-embedded radio-player">
+    <div ui-view 
+         class="microsite embedded-radio-player" 
+         data-playerwidth="340px" 
+         data-playertype="web_embedded" 
+         data-playstation="cladrite" 
+         data-autoplay="true" 
+         data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93">
+    </div>
+  </div>
+
+  <!-- Embed Script -->
+  <script>
+    (function(d, s) {
+      if (!window.rel) {
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.id = "radio-de-embedded";
+        s.src = "https://www.radio.net/inc/microsite/js/full.js";
+        d.getElementsByTagName("head")[0].appendChild(s);
+        window.rel = true;
+      }
+    }(document));
+
+    // Drag and Rotate Dial
+    const dial = document.getElementById('dial');
+    let isDragging = false;
+    let initialAngle = 0;
+
+    dial.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      dial.style.cursor = 'grabbing';
+
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const dx = event.clientX - centerX;
+      const dy = event.clientY - centerY;
+      initialAngle = Math.atan2(dy, dx) * (180 / Math.PI) - (dial.rotation || 0);
+    });
+
+    document.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
+
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const dx = event.clientX - centerX;
+      const dy = event.clientY - centerY;
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) - initialAngle;
+
+      dial.style.transform = `rotate(${angle}deg)`;
+      dial.rotation = angle;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      dial.style.cursor = 'grab';
+    });
+
+    // Function to update the time on the clock
+    function updateClock() {
+      const now = new Date();
+      const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      let hours = nyTime.getHours();
+      const minutes = nyTime.getMinutes();
+
+      // Convert to 12-hour format
+      hours = hours % 12 || 12; // Adjust hours to be in the range 1-12
+
+      // If the hour is a single digit, show a leading zero
+      if (hours < 10) {
+        updateDigit('hourTens', 0); // Show zero in the tens place
+        updateDigit('hourOnes', hours); // Show the hour in the ones place
+      } else {
+        updateDigit('hourTens', Math.floor(hours / 10)); // Handle tens place
+        updateDigit('hourOnes', hours % 10); // Handle ones place
+      }
+
+      updateDigit('minuteTens', Math.floor(minutes / 10)); // Handle tens place of minutes
+      updateDigit('minuteOnes', minutes % 10); // Handle ones place of minutes
+    }
+
+    function updateDigit(id, value) {
+      const digit = document.getElementById(id);
+      const top = digit.querySelector('.top');
+      const bottom = digit.querySelector('.bottom');
+
+      if (top.textContent !== value.toString()) {
+        const newTop = document.createElement('div');
+        newTop.classList.add('top', 'new');
+        newTop.textContent = value;
+
+        const newBottom = document.createElement('div');
+        newBottom.classList.add('bottom', 'new');
+        newBottom.textContent = value;
+
+        digit.appendChild(newTop);
+        digit.appendChild(newBottom);
+
+        setTimeout(() => {
+          top.classList.add('old');
+          newTop.style.transform = 'rotateX(-90deg)';
+          newBottom.style.transform = 'rotateX(0deg)';
+        }, 50);
+
+        setTimeout(() => {
+          top.remove();
+          bottom.remove();
+          newTop.classList.remove('new');
+          newBottom.classList.remove('new');
+        }, 500);
+      }
+    }
+
+    // Function to update the background image based on time
+    function updateBackgroundImage() {
+      const now = new Date();
+      const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      const hours = nyTime.getHours();
+
+      if (hours >= 4 && hours < 12) {
+        document.body.style.backgroundImage = "url('morning.png')";
+      } else if (hours >= 12 && hours < 18) {
+        document.body.style.backgroundImage = "url('afternoon.png')";
+      } else {
+        document.body.style.backgroundImage = "url('evening.png')";
+      }
+    }
+
+    // Initialize the Flip Clock and Background
+    updateClock();
+    updateBackgroundImage();
+    setInterval(updateClock, 1000); // Update the clock every second
+    setInterval(updateBackgroundImage, 60000); // Check for background change every minute
+  </script>
+</body>
+</html>
+

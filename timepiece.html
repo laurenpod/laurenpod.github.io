@@ -4,42 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Time Piece</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
   <style>
-    /* Flip Clock CSS */
+    /* Updated Flip Clock CSS */
     body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: 'Cochin', serif;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover; /* Ensures the image covers the whole background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  font-family: 'georgia', serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Allow absolute positioning inside body */
+}
 
-    .container {
-      position: relative;
-      width: 90vw; /* Make the container responsive */
-      height: 90vh;
-    }
 
     .flip-clock-wrapper {
       position: absolute;
-      top: 55%; /* Center vertically */
-      left: 47%; /* Center horizontally */
-      transform: translate(-50%, -56%); /* Offset for centering */
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 999;
       width: 50%; /* Responsive size */
     }
 
     .flip-clock {
-      font-family: 'Georgia', sans-serif;
-      font-size: 2.5vw; /* Scales with viewport width */
+      font-family: 'doto', sans-serif;
+      font-size: 2.5vw;
       color: #fff;
       display: flex;
       justify-content: center;
@@ -48,86 +46,60 @@
 
     .flip-clock .clock {
       display: flex;
-      gap: 2vw; /* Responsive spacing between digits */
+      gap: 5vw; /* Increased gap between hours and minutes */
+    }
+
+    .flip-clock .time-section {
+      display: flex;
+      gap: 1vw; /* Space between each digit block */
     }
 
     .flip-clock .clock .flip {
-      background-color: #333;
+      background-color: #000000;
       border: 0.1vw solid #222;
-      width: 8vw; /* Digit size scales with viewport */
-      height: 8vw;
-      position: relative;
+      width: 10vw; /* Digit size scales with viewport */
+      height: 9vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: translate(-50%, -110%); /* Perfect centering */
     }
 
-    .flip-clock .clock .flip .top,
-    .flip-clock .clock .flip .bottom {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background-color: #222;
-      color: #fff;
-      text-align: center;
-      font-size: 2vw;
+    .flip-clock .clock .flip span {
+      font-size: 6vw; /* Ensure numbers fill the square but maintain spacing */
       font-weight: bold;
-      line-height: 4vw; /* Match half the height */
+      color: #fff;
     }
 
     .radio-wrapper {
-      width: 10vw; /* Scales with viewport width */
-      height: 10vw;
-      background-image: url('dial.jpg'); /* Replace with your dial image */
-      background-size: cover;
-      background-position: center;
-      border-radius: 50%;
-      position: absolute;
-      right: 32%; /* Responsive positioning */
-      bottom: 27%; /* Responsive positioning */
-    }
+  width: 10vw;
+  height: 10vw;
+  background-image: url('dial.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  position: absolute;
+  right: 29%;
+  bottom: 29%;
+  cursor: grab;
+  z-index: 1000; /* Ensure it is on top */
+  pointer-events: auto; /* Ensure it's interactive */
+  background-color: rgba(255, 0, 0, 0.2); /* Temporary highlight for debugging */
+}
 
+
+
+    /* Radio Player at the top right */
     .radio-player {
-      width: 30vw; /* Responsive width */
       position: absolute;
-      top: 0%;
-      right: 0%;
+      top: 0;
+      right: 0;
+      z-index: 10; /* Keep it on top of other elements */
+      width: 340px; /* Adjust the size */
     }
   </style>
 </head>
 <body>
-
-  <!-- Flip Clock -->
-  <div class="flip-clock-wrapper">
-    <div class="flip-clock">
-      <div class="clock">
-        <div class="flip" id="hourTens">
-          <div class="flip-inner">
-            <div class="top">0</div>
-            <div class="bottom">0</div>
-          </div>
-        </div>
-        <div class="flip" id="hourOnes">
-          <div class="flip-inner">
-            <div class="top">0</div>
-            <div class="bottom">0</div>
-          </div>
-        </div>
-        <div class="flip" id="minuteTens">
-          <div class="flip-inner">
-            <div class="top">0</div>
-            <div class="bottom">0</div>
-          </div>
-        </div>
-        <div class="flip" id="minuteOnes">
-          <div class="flip-inner">
-            <div class="top">0</div>
-            <div class="bottom">0</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Vintage Radio Dial -->
-  <div class="radio-wrapper" id="dial"></div>
 
   <!-- Radio Player -->
   <div class="ng-app-embedded radio-player">
@@ -140,6 +112,25 @@
          data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93">
     </div>
   </div>
+
+  <!-- Flip Clock -->
+  <div class="flip-clock-wrapper">
+    <div class="flip-clock">
+      <div class="clock">
+        <div class="time-section" id="hours">
+          <div class="flip" id="hourTens"><span>0</span></div>
+          <div class="flip" id="hourOnes"><span>0</span></div>
+        </div>
+        <div class="time-section" id="minutes">
+          <div class="flip" id="minuteTens"><span>0</span></div>
+          <div class="flip" id="minuteOnes"><span>0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vintage Radio Dial -->
+  <div class="radio-wrapper" id="dial"></div>
 
   <!-- Embed Script -->
   <script>
@@ -154,44 +145,52 @@
         window.rel = true;
       }
     }(document));
+// Drag and Rotate Dial
+const dial = document.getElementById('dial');
+let isDragging = false;
+let initialAngle = 0;
+let currentRotation = 0; // Tracks the current rotation of the dial
 
-    // Drag and Rotate Dial
-    const dial = document.getElementById('dial');
-    let isDragging = false;
-    let initialAngle = 0;
+function calculateAngle(centerX, centerY, mouseX, mouseY) {
+  return Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+}
 
-    dial.addEventListener('mousedown', (event) => {
-      isDragging = true;
-      dial.style.cursor = 'grabbing';
+dial.addEventListener('mousedown', (event) => {
+  isDragging = true;
+  dial.style.cursor = 'grabbing';
 
-      const rect = dial.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+  const rect = dial.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
 
-      const dx = event.clientX - centerX;
-      const dy = event.clientY - centerY;
-      initialAngle = Math.atan2(dy, dx) * (180 / Math.PI) - (dial.rotation || 0);
-    });
+  const startAngle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
+  initialAngle = startAngle - currentRotation;
 
-    document.addEventListener('mousemove', (event) => {
-      if (!isDragging) return;
+  event.preventDefault(); // Prevent text selection or unwanted behaviors
+});
 
-      const rect = dial.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+document.addEventListener('mousemove', (event) => {
+  if (!isDragging) return;
 
-      const dx = event.clientX - centerX;
-      const dy = event.clientY - centerY;
-      const angle = Math.atan2(dy, dx) * (180 / Math.PI) - initialAngle;
+  const rect = dial.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
 
-      dial.style.transform = `rotate(${angle}deg)`;
-      dial.rotation = angle;
-    });
+  const angle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
+  currentRotation = angle - initialAngle;
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      dial.style.cursor = 'grab';
-    });
+  dial.style.transform = `rotate(${currentRotation}deg)`;
+});
+
+document.addEventListener('mouseup', () => {
+  if (isDragging) {
+    isDragging = false;
+    dial.style.cursor = 'grab';
+  }
+});
+
+
+
 
     // Function to update the time on the clock
     function updateClock() {
@@ -203,49 +202,16 @@
       // Convert to 12-hour format
       hours = hours % 12 || 12; // Adjust hours to be in the range 1-12
 
-      // If the hour is a single digit, show a leading zero
-      if (hours < 10) {
-        updateDigit('hourTens', 0); // Show zero in the tens place
-        updateDigit('hourOnes', hours); // Show the hour in the ones place
-      } else {
-        updateDigit('hourTens', Math.floor(hours / 10)); // Handle tens place
-        updateDigit('hourOnes', hours % 10); // Handle ones place
-      }
-
-      updateDigit('minuteTens', Math.floor(minutes / 10)); // Handle tens place of minutes
-      updateDigit('minuteOnes', minutes % 10); // Handle ones place of minutes
+      // Update the digits
+      setDigit('hourTens', Math.floor(hours / 10)); 
+      setDigit('hourOnes', hours % 10); 
+      setDigit('minuteTens', Math.floor(minutes / 10));
+      setDigit('minuteOnes', minutes % 10);
     }
 
-    function updateDigit(id, value) {
+    function setDigit(id, value) {
       const digit = document.getElementById(id);
-      const top = digit.querySelector('.top');
-      const bottom = digit.querySelector('.bottom');
-
-      if (top.textContent !== value.toString()) {
-        const newTop = document.createElement('div');
-        newTop.classList.add('top', 'new');
-        newTop.textContent = value;
-
-        const newBottom = document.createElement('div');
-        newBottom.classList.add('bottom', 'new');
-        newBottom.textContent = value;
-
-        digit.appendChild(newTop);
-        digit.appendChild(newBottom);
-
-        setTimeout(() => {
-          top.classList.add('old');
-          newTop.style.transform = 'rotateX(-90deg)';
-          newBottom.style.transform = 'rotateX(0deg)';
-        }, 50);
-
-        setTimeout(() => {
-          top.remove();
-          bottom.remove();
-          newTop.classList.remove('new');
-          newBottom.classList.remove('new');
-        }, 500);
-      }
+      digit.querySelector('span').textContent = value;
     }
 
     // Function to update the background image based on time

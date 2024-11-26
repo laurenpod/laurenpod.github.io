@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Internet Radio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2C1810;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .vintage-radio {
+            width: 480px;
+            background: linear-gradient(to bottom, #5D3A1A, #3D2510);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 4px solid #3D2510;
+            color: #FFD700;
+        }
+
+        .clock-display {
+            background-color: #1A1A1A;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+        }
+
+        .time {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4AFA53;
+            text-shadow: 0 0 10px rgba(74, 250, 83, 0.7);
+        }
+
+        .date {
+            font-size: 18px;
+            color: #4AFA53;
+            margin-top: 5px;
+        }
+
+        .radio-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .power-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .power-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            color: #FF4500;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .volume-slider {
+            width: 100px;
+            margin-left: 10px;
+        }
+
+        .station-selector {
+            background-color: #1A1A1A;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+        }
+
+        .station-btn {
+            background-color: #2C1810;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .station-btn:hover {
+            background-color: #4A2A16;
+        }
+
+        .station-display {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4AFA53;
+            text-shadow: 0 0 8px rgba(74, 250, 83, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .station-name {
+            font-size: 16px;
+            margin-top: 5px;
+            color: #FFD700;
+        }
+
+        .audio-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div class="vintage-radio">
+        <div class="clock-display">
+            <div id="time" class="time">12:00 PM</div>
+            <div id="date" class="date">Wed, Nov 26</div>
+        </div>
+
+        <div class="radio-controls">
+            <div class="power-btn">
+                <svg class="power-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11 2v10h2V2zm4.46 2.73a8 8 0 1 0-6.92 0 1 1 0 0 0 .89 1.27h5.14a1 1 0 0 0 .89-1.27z"/>
+                </svg>
+                <span>RADIO OFF</span>
+            </div>
+            <div class="volume-control">
+                <span>VOL</span>
+                <input type="range" min="0" max="100" value="50" class="volume-slider">
+            </div>
+        </div>
+
+        <div class="station-selector">
+            <button class="station-btn prev-station">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="station-display">
+                <div id="station-freq">98.5 FM</div>
+                <div id="station-name" class="station-name">Classic Rock</div>
+            </div>
+            <button class="station-btn next-station">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="audio-info" id="audio-status">
+            Tuning... Please wait.
+        </div>
+
+        <audio id="radio-player" style="display:none;"></audio>
+    </div>
+
+    <script>
+        // Radio stations with their streaming URLs
+        const stations = [
+            {
+                freq: "88.5",
+                name: "NPR News",
+                url: "https://npr-ice.streamguys1.com/live.mp3"
+            },
+            {
+                freq: "92.3",
+                name: "Classic Rock",
+                url: "http://live.wostreaming.net/manifest/entercom-kqlzfmaac-ibc1"
+            },
+            {
+                freq: "97.1",
+                name: "Talk Radio",
+                url: "https://live.wostreaming.net/manifest/entercom-kdmpfmaac-ibc1"
+            },
+            {
+                freq: "101.5",
+                name: "Jazz Smooth",
+                url: "https://live.wostreaming.net/manifest/entercom-kjazfmaac-ibc1"
+            },
+            {
+                freq: "106.7",
+                name: "Pop Hits",
+                url: "https://live.wostreaming.net/manifest/entercom-kllcfmaac-ibc1"
+            }
+        ];
+
+        let currentStationIndex = 0;
+        let radioOn = false;
+
+        const audioPlayer = document.getElementById('radio-player');
+        const stationFreq = document.getElementById('station-freq');
+        const stationName = document.getElementById('station-name');
+        const audioStatus = document.getElementById('audio-status');
+        const powerBtn = document.querySelector('.power-btn');
+        const volumeSlider = document.querySelector('.volume-slider');
+        const prevStationBtn = document.querySelector('.prev-station');
+        const nextStationBtn = document.querySelector('.next-station');
+
+        function updateStation(station) {
+            stationFreq.textContent = `${station.freq} FM`;
+            stationName.textContent = station.name;
+        }
+
+        function changeStation(direction) {
+            currentStationIndex = (currentStationIndex + direction + stations.length) % stations.length;
+            updateStation(stations[currentStationIndex]);
+            
+            if (radioOn) {
+                audioPlayer.src = stations[currentStationIndex].url;
+                audioPlayer.play().catch(e => {
+                    audioStatus.textContent = "Station unavailable";
+                });
+            }
+        }
+
+        powerBtn.addEventListener('click', () => {
+            radioOn = !radioOn;
+            powerBtn.querySelector('span').textContent = radioOn ? 'RADIO ON' : 'RADIO OFF';
+            powerBtn.querySelector('.power-icon').style.color = radioOn ? '#4AFA53' : '#FF4500';
+
+            if (radioOn) {
+                audioPlayer.src = stations[currentStationIndex].url;
+                audioPlayer.play().catch(e => {
+                    audioStatus.textContent = "Cannot play station";
+                    radioOn = false;
+                });
+                audioStatus.textContent = "Now Playing";
+            } else {
+                audioPlayer.pause();
+                audioStatus.textContent = "Radio Stopped";
+            }
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            audioPlayer.volume = volumeSlider.value / 100;
+        });
+
+        prevStationBtn.addEventListener('click', () => changeStation(-1));
+        nextStationBtn.addEventListener('click', () => changeStation(1));
+
+        // Initial station setup
+        updateStation(stations[currentStationIndex]);
+
+        // Clock update function
+        function updateTime() {
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            const now = new Date();
+
+            timeElement.textContent = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+
+            dateElement.textContent = now.toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Update time immediately and then every second
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
