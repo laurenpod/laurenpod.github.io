@@ -10,21 +10,20 @@
   <style>
     /* Updated Flip Clock CSS */
     body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover; /* Ensures the image covers the whole background */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling */
-  font-family: 'georgia', serif;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Allow absolute positioning inside body */
-}
-
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover; /* Ensures the image covers the whole background */
+      background-position: center; /* Centers the image */
+      background-repeat: no-repeat; /* Prevents tiling */
+      font-family: 'georgia', serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; /* Allow absolute positioning inside body */
+    }
 
     .flip-clock-wrapper {
       position: absolute;
@@ -71,22 +70,20 @@
     }
 
     .radio-wrapper {
-  width: 8vw;
-  height: 8vw;
-  background-image: url('dial.jpg');
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-  position: absolute;
-  right: 33%;
-  bottom: 28%;
-  cursor: grab;
-  z-index: 1000; /* Ensure it is on top */
-  pointer-events: auto; /* Ensure it's interactive */
-  background-color: rgba(255, 0, 0, 0.2); /* Temporary highlight for debugging */
-}
-
-
+      width: 8vw;
+      height: 8vw;
+      background-image: url('dial.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      position: absolute;
+      right: 33%;
+      bottom: 28%;
+      cursor: grab;
+      z-index: 1000; /* Ensure it is on top */
+      pointer-events: auto; /* Ensure it's interactive */
+      background-color: rgba(255, 0, 0, 0.2); /* Temporary highlight for debugging */
+    }
 
     /* Radio Player at the top right */
     .radio-player {
@@ -144,52 +141,50 @@
         window.rel = true;
       }
     }(document));
-// Drag and Rotate Dial
-const dial = document.getElementById('dial');
-let isDragging = false;
-let initialAngle = 0;
-let currentRotation = 0; // Tracks the current rotation of the dial
 
-function calculateAngle(centerX, centerY, mouseX, mouseY) {
-  return Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
-}
+    // Drag and Rotate Dial
+    const dial = document.getElementById('dial');
+    let isDragging = false;
+    let initialAngle = 0;
+    let currentRotation = 0;
 
-dial.addEventListener('mousedown', (event) => {
-  isDragging = true;
-  dial.style.cursor = 'grabbing';
+    function calculateAngle(centerX, centerY, mouseX, mouseY) {
+      return Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+    }
 
-  const rect = dial.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+    dial.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      dial.style.cursor = 'grabbing';
 
-  const startAngle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
-  initialAngle = startAngle - currentRotation;
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-  event.preventDefault(); // Prevent text selection or unwanted behaviors
-});
+      const startAngle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
+      initialAngle = startAngle - currentRotation;
 
-document.addEventListener('mousemove', (event) => {
-  if (!isDragging) return;
+      event.preventDefault();
+    });
 
-  const rect = dial.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+    document.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
 
-  const angle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
-  currentRotation = angle - initialAngle;
+      const rect = dial.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-  dial.style.transform = `rotate(${currentRotation}deg)`;
-});
+      const angle = calculateAngle(centerX, centerY, event.clientX, event.clientY);
+      currentRotation = angle - initialAngle;
 
-document.addEventListener('mouseup', () => {
-  if (isDragging) {
-    isDragging = false;
-    dial.style.cursor = 'grab';
-  }
-});
+      dial.style.transform = `rotate(${currentRotation}deg)`;
+    });
 
-
-
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        dial.style.cursor = 'grab';
+      }
+    });
 
     // Function to update the time on the clock
     function updateClock() {
@@ -199,7 +194,7 @@ document.addEventListener('mouseup', () => {
       const minutes = nyTime.getMinutes();
 
       // Convert to 12-hour format
-      hours = hours % 12 || 12; // Adjust hours to be in the range 1-12
+      hours = hours % 12 || 12;
 
       // Update the digits
       setDigit('hourTens', Math.floor(hours / 10)); 
@@ -228,12 +223,12 @@ document.addEventListener('mouseup', () => {
       }
     }
 
+    
     // Initialize the Flip Clock and Background
     updateClock();
     updateBackgroundImage();
-    setInterval(updateClock, 1000); // Update the clock every second
-    setInterval(updateBackgroundImage, 60000); // Check for background change every minute
+    setInterval(updateClock, 1000);
+    setInterval(updateBackgroundImage, 60000);
   </script>
 </body>
 </html>
-
