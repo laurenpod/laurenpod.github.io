@@ -157,8 +157,8 @@
                 </svg>
             </button>
             <div class="station-display">
-                <div id="station-freq">98.5 FM</div>
-                <div id="station-name" class="station-name">Classic Rock</div>
+                <div id="station-freq">100.0 FM</div>
+                <div id="station-name" class="station-name">Classic FM</div>
             </div>
             <button class="station-btn next-station">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,34 +175,28 @@
     </div>
 
     <script>
-        // Radio stations with their streaming URLs
         const stations = [
+            {
+                freq: "100.0",
+                name: "Classic FM",
+                url: "https://media-ice.musicradio.com/ClassicFMMP3"
+            },
             {
                 freq: "88.5",
                 name: "NPR News",
                 url: "https://npr-ice.streamguys1.com/live.mp3"
             },
             {
-                freq: "92.3",
-                name: "Classic Rock",
-                url: "http://live.wostreaming.net/manifest/entercom-kqlzfmaac-ibc1"
+                freq: "70.0",
+                name: "181.fm - 70s",
+                url: "http://listen.181fm.com/181-70s_128k.mp3"
             },
             {
-                freq: "97.1",
-                name: "Talk Radio",
-                url: "https://live.wostreaming.net/manifest/entercom-kdmpfmaac-ibc1"
-            },
-            {
-                freq: "101.5",
-                name: "Jazz Smooth",
-                url: "https://live.wostreaming.net/manifest/entercom-kjazfmaac-ibc1"
-            },
-            {
-                freq: "106.7",
-                name: "Pop Hits",
-                url: "https://live.wostreaming.net/manifest/entercom-kllcfmaac-ibc1"
-            }
-        ];
+        freq: "100.0",
+        name: "KEXP - Music that Matters",
+        url: "http://live-mp3-128.kexp.org/kexp128.mp3"  // KEXP Seattle
+    }
+];
 
         let currentStationIndex = 0;
         let radioOn = false;
@@ -224,7 +218,7 @@
         function changeStation(direction) {
             currentStationIndex = (currentStationIndex + direction + stations.length) % stations.length;
             updateStation(stations[currentStationIndex]);
-            
+
             if (radioOn) {
                 audioPlayer.src = stations[currentStationIndex].url;
                 audioPlayer.play().catch(e => {
