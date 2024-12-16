@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Song & Playlist Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #6200ea;
+      color: white;
+      padding: 20px;
+      font-size: 1.5rem;
+    }
+    main {
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6200ea;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3700b3;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    .song-container {
+      margin-bottom: 30px;
+    }
+    iframe {
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Random Song & Playlist Generator
+  </header>
+  <main>
+    <button onclick="generateRandomSong()">Generate Random Song</button>
+    <button onclick="generateRandomPlaylist()">Generate Random Playlist</button>
+    <div class="output" id="output"></div>
+  </main>
+  <script>
+   const songs = [
+  { title: "Smells Like Teen Spirit - Nirvana", spotifyEmbedId: "6l8GvAyoUZwWDgF1e4822w" },
+  { title: "Boys Don't Cry - The Cure", spotifyEmbedId: "2RKDbMwtJgKc76H9oPo7Cl" },
+  { title: "Do I Wanna Know? - Arctic Monkeys", spotifyEmbedId: "bpOSxM0rNPM" },
+  { title: "Take Me Out - Franz Ferdinand", spotifyEmbedId: "pgfNUsv47b0" },
+  { title: "Reptilia - The Strokes", spotifyEmbedId: "TOtL2k4l71o" },
+  { title: "Clint Eastwood - Gorillaz", spotifyEmbedId: "xHkSdJ9Qw5o" },
+  { title: "Electric Feel - MGMT", spotifyEmbedId: "MmZexg8sXYk" },
+  { title: "Under Control - The Strokes", spotifyEmbedId: "j2p8Jt4l_V8" },
+  { title: "The Killing Moon - Echo & the Bunnymen", spotifyEmbedId: "O5SrnMQEdm8" },
+  { title: "Punk Rock Girl - The Dead Milkmen", spotifyEmbedId: "lmyKxsVZu5I" },
+  { title: "Black Hole Sun - Soundgarden", spotifyEmbedId: "3MBt1wENBjs" },
+  { title: "Everlong - Foo Fighters", spotifyEmbedId: "o_GI_XDqF7o" },
+  { title: "Loser - Beck", spotifyEmbedId: "V1Pl8CzNzCw" },
+  { title: "Wolf Like Me - TV on the Radio", spotifyEmbedId: "8e1klXK0V_c" },
+  { title: "Time Is On My Side - The Rolling Stones", spotifyEmbedId: "lZ7MZ8iBHE0" },
+  { title: "The Less I Know The Better - Tame Impala", spotifyEmbedId: "KXkF7CTxhR8" },
+  { title: "Losing My Religion - R.E.M.", spotifyEmbedId: "xwtdhWltSIg" },
+  { title: "My Generation - The Who", spotifyEmbedId: "B2fRZX6bq6M" },
+  { title: "Rebellion (Lies) - Arcade Fire", spotifyEmbedId: "Zn3nd8mZD94" },
+  { title: "1901 - Phoenix", spotifyEmbedId: "BmhvcnP6A30" },
+  { title: "Dreams - Fleetwood Mac", spotifyEmbedId: "mrZRURcb1cM" },
+  { title: "Oblivion - Grimes", spotifyEmbedId: "J5FqAHSzXi4" },
+  { title: "Heart-Shaped Box - Nirvana", spotifyEmbedId: "d-vt5kX4vVY" },
+  { title: "No One Knows - Queens of the Stone Age", spotifyEmbedId: "mvjOUjccY_M" },
+  { title: "Shut Up and Dance - WALK THE MOON", spotifyEmbedId: "6JtPjPlHg8E" },
+  { title: "Once in a Lifetime - Talking Heads", spotifyEmbedId: "I1wg1DNHbNU" },
+  { title: "Toxic - Britney Spears (The Strokes Cover)", spotifyEmbedId: "k8_4w2gdvFE" },
+  { title: "Breezeblocks - Alt-J", spotifyEmbedId: "Jt5auJ4VysE" },
+  { title: "Somebody That I Used To Know - Gotye ft. Kimbra", spotifyEmbedId: "8UVNT4wvIGY" },
+  { title: "Take A Walk - Passion Pit", spotifyEmbedId: "6ftVlxuEY5I" },
+  { title: "Lithium - Nirvana", spotifyEmbedId: "9i7Y9gKhCZk" },
+  { title: "Maps - Yeah Yeah Yeahs", spotifyEmbedId: "oIIxFYbd7_E" },
+  { title: "The Ocean - Led Zeppelin", spotifyEmbedId: "H4mBkd8Izj8" },
+  { title: "Strange Mercy - St. Vincent", spotifyEmbedId: "Wbd0yMAHq6Q" },
+  { title: "Banquet - Bloc Party", spotifyEmbedId: "rRltgQ2tVr8" },
+  { title: "Electric Avenue - Eddy Grant", spotifyEmbedId: "aJl5U5r_r8g" },
+  { title: "Take me to Church - Hozier", spotifyEmbedId: "PVjiKRfKpPI" },
+  { title: "Gimme Shelter - The Rolling Stones", spotifyEmbedId: "VjjgF6n_Ztc" },
+  { title: "Black Sheep - Metric", spotifyEmbedId: "k3ofKe0QDTQ" },
+  { title: "All the Small Things - Blink-182", spotifyEmbedId: "9Ht5RZpzPqw" },
+  { title: "Ready to Start - Arcade Fire", spotifyEmbedId: "T0O1jlVm1Tc" },
+  { title: "Song 2 - Blur", spotifyEmbedId: "GGXzlRoNtHU" },
+  { title: "Aeroplane - Red Hot Chili Peppers", spotifyEmbedId: "LnLq5Y9M_uk" },
+  { title: "Take it Easy - Eagles", spotifyEmbedId: "t0KDoR6Ch_g" },
+  { title: "No Surprises - Radiohead", spotifyEmbedId: "1r4vnnDQwCo" },
+  { title: "All of Me - John Legend", spotifyEmbedId: "450p7goxZqg" },
+  { title: "Mouthful of Diamonds - Phantogram", spotifyEmbedId: "v9bD5uDq1zM" },
+  { title: "I Bet You Look Good On The Dancefloor - Arctic Monkeys", spotifyEmbedId: "pKQF3H5_4xE" },
+  { title: "Wolf Parade - I'll Believe in Anything", spotifyEmbedId: "DK6J1XX6e6M" },
+  { title: "Cold Little Heart - Michael Kiwanuka", spotifyEmbedId: "EzftcGLonp4" },
+  { title: "Hunger of the Pine - Alt-J", spotifyEmbedId: "fUhs0UtElZ8" },
+  { title: "Howling - Ry X", spotifyEmbedId: "w0QCGJ_gI1A" },
+  { title: "Bloodbuzz Ohio - The National", spotifyEmbedId: "zDCaCxb1tiY" },
+  { title: "Fell In Love With a Girl - The White Stripes", spotifyEmbedId: "7YZZgZed7j8" },
+  { title: "Staring at the Sun - Mika", spotifyEmbedId: "9tX7mbjA5Ro" },
+  { title: "New Slang - The Shins", spotifyEmbedId: "x9wW7ou8fKM" },
+  { title: "No One's Gonna Love You - Band of Horses", spotifyEmbedId: "8BzxQK6rbmI" },
+  { title: "Running Up That Hill - Kate Bush", spotifyEmbedId: "wp43OdtAAkM" },
+  { title: "A Punk - Vampire Weekend", spotifyEmbedId: "4pJYQpZG_s8" },
+  { title: "Little Dark Age - MGMT", spotifyEmbedId: "2Y0iGXY6m6immVb2ktbseM" },
+  { title: "Waiting On A War - Foo Fighters", spotifyEmbedId: "tY5kK_oHcnI" },
+  { title: "Hard to Explain - The Strokes", spotifyEmbedId: "mdh7yxz-_D8" },
+  { title: "Lazaretto - Jack White", spotifyEmbedId: "uWXpgl27dgs" },
+  { title: "Helena - My Chemical Romance", spotifyEmbedId: "lFzQny2OD1s" },
+  { title: "You're Somebody Else - Flora Cash", spotifyEmbedId: "9Y1tI-Ja_iY" },
+  { title: "Chamber of Reflection - Mac DeMarco", spotifyEmbedId: "6zF00JbOdfI" },
+  { title: "Young Folks - Peter Bjorn and John", spotifyEmbedId: "E1dxixJS56k" },
+  { title: "Mr. Brightside - The Killers", spotifyEmbedId: "gJtNHO8x9g4" },
+  { title: "I Wanna Be Your Dog - The Stooges", spotifyEmbedId: "672N8DGGTOLCOgWe0koX5g?utm" },
+  { title: "Hot Knife - Fiona Apple", spotifyEmbedId: "tkzZLhzl3Mc" },
+  { title: "Cough Syrup - Young the Giant", spotifyEmbedId: "6u5mCpP8lZQ" },
+  { title: "Just Like Heaven - The Cure", spotifyEmbedId: "n6P7vFqXYR4" },
+  { title: "Panda - Desiigner", spotifyEmbedId: "MVt32qoyhi0" },
+  { title: "Junk of the Heart (Happy) - The Kooks", spotifyEmbedId: "3P7kF_LBznY" },
+  { title: "Grown Ocean - Fleet Foxes", spotifyEmbedId: "aS2rZQnZftw" },
+  { title: "No Rest for the Wicked - Lykke Li", spotifyEmbedId: "zOGqL-VKjt8" },
+  { title: "Love Like Ghosts - Lord Huron", spotifyEmbedId: "xlVn8cS6Ksc" }
+];
+
+
+    function generateRandomSong() {
+      const randomSong = songs[Math.floor(Math.random() * songs.length)];
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = `
+        <h2>Now Playing:</h2>
+        <p><strong>${randomSong.title}</strong></p>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${randomSong.spotifyEmbedId}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      `;
+    }
+
+    function generateRandomPlaylist() {
+      const shuffledSongs = songs.sort(() => 0.5 - Math.random());
+      const playlistContainer = document.getElementById('output');
+      playlistContainer.innerHTML = '<h2>Playlist:</h2>';
+      
+      shuffledSongs.slice(0, 5).forEach(song => {
+        playlistContainer.innerHTML += `
+          <div class="song-container">
+            <p><strong>${song.title}</strong></p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${song.spotifyEmbedId}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

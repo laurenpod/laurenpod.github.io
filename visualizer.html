@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Visualizer</title>
+  <style>
+    body {
+      background-color: black;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="visualizer"></canvas>
+  <script>
+    const canvas = document.getElementById("visualizer");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function drawVisualizer() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const bars = 64;
+      const barWidth = canvas.width / bars;
+      for (let i = 0; i < bars; i++) {
+        const barHeight = Math.random() * canvas.height * 0.5;
+        const x = i * barWidth;
+        const y = canvas.height - barHeight;
+
+        ctx.fillStyle = `hsl(${i * 5}, 100%, 50%)`;
+        ctx.fillRect(x, y, barWidth - 2, barHeight);
+      }
+
+      requestAnimationFrame(drawVisualizer);
+    }
+
+    drawVisualizer();
+  </script>
+</body>
+</html>
