@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <title>The Smiths Song Generator</title>
+    <style>
+        /* Basic styles for the page */
+        body {
+            font-family: 'georgia', sans-serif;
+            background-color: #05230a;
+            color: white;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'IM Fell French Canon SC', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'georgia', sans-serif;
+            font-size: 1em;
+            color: #ff69b4;
+            margin-top: 3%;
+        }
+
+        .song-display {
+            font-family: 'georgia', sans-serif;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #df1479;
+        }
+
+        button {
+            font-family: 'georgia', sans-serif;
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #ff69b4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Adjust the draggable image size and behavior */
+        #draggableImage, #disc, #pin {
+            cursor: grab;
+            position: absolute;
+            transition: transform 0.1s ease;
+        }
+
+        #draggableImage {
+            top: 100px; /* Custom top position */
+            left: 100px; /* Custom left position */
+            transform: translate(0, 0); /* No centering, starts from the left-top corner */
+        }
+
+        #draggableImage, #disc, #pin, img {
+    filter: sepia(60%);
+}
+
+img {
+    filter: blur(5px);  /* Apply blur initially */
+}
+
+img:hover {
+    filter: blur(0);  /* Remove blur on hover */
+}
+
+
+        #disc {
+            width: 250px; /* Size of the disc image */
+            top: 700px;  /* Custom position for disc image */
+            left: 200px;  /* Custom position for disc image */
+            transform: translate(0, 0); /* No centering, starts from the left-top corner */
+        }
+
+        #pin {
+            width: 250px; /* Size of the pin image */
+            top: 400px;  /* Custom position for pin image */
+            left: 1100px;  /* Custom position for pin image */
+            transform: translate(0, 0); /* No centering, starts from the left-top corner */
+        }
+
+        #draggableImage:active, #disc:active, #pin:active {
+            cursor: grabbing;
+        }
+
+
+        #spikyImage {
+    width: 300px;
+    height: auto;
+    position: relative;
+    display: block;
+    margin: 20px auto;
+    border: 10px solid transparent; /* Create transparent border */
+    background-image: url('spikes.png'); /* Optional: Use a custom spike image as the frame */
+    background-size: cover;
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8), 
+        0 0 25px rgba(255, 116, 116, 0.5), /* Red glow around the border */
+        0 0 50px rgba(255, 255, 255, 0.3); /* Larger glow effect */
+}
+
+#spikyImage:hover {
+    transform: scale(1.1); /* Slight zoom-in on hover */
+    filter: brightness(1.2); /* Brighten on hover */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>THE SMITHS
+            <br> SONG GENERATOR</h1>
+        <p>Featuring anything made by Morrissey and Marr</p>
+        <button onclick="generateSong()">Generate a Random Song</button>
+        <p id="randomSong" class="song-display"><h2>Click the button to get a random song!</h2></p>
+    </div>
+
+    <!-- Draggable Images -->
+    <img src="https://media1.tenor.com/m/Zxkx36821-0AAAAd/sadistic-school.gif" id="spikyImage" alt="Spiky Frame Image">
+
+    <img src="https://cdn10.bigcommerce.com/s-yhxhf/products/5334/images/9686/1EI013__74361.1428796663.600.600.png?c=2" width="200" height="200" id="draggableImage">
+    
+    <img src="smiths.png" id="disc" width="250" height="230">
+    <img src="https://cdn10.bigcommerce.com/s-yhxhf/products/5340/images/9698/1EI019__44516.1428797325.600.600.png?c=2" id="pin" width="250" height="230">
+
+    <script>
+        // List of songs from The Smiths, Morrissey, and Johnny Marr
+        const songs = [
+            "There Is a Light That Never Goes Out - The Smiths",
+            "How Soon Is Now? - The Smiths",
+            "This Charming Man - The Smiths",
+            "Girlfriend in a Coma - The Smiths",
+            "Panic - The Smiths",
+            "Bigmouth Strikes Again - The Smiths",
+            "Suedehead - Morrissey",
+            "Everyday Is Like Sunday - Morrissey",
+            "Irish Blood, English Heart - Morrissey",
+            "First of the Gang to Die - Morrissey",
+            "I'm Throwing My Arms Around Paris - Morrissey",
+            "Easy Money - Johnny Marr",
+            "Shoplifters of the World Unite - The Smiths",
+            "I Know It's Over - The Smiths",
+            "The Boy with the Thorn in His Side - The Smiths",
+            "Please Please Please Let Me Get What I Want - The Smiths",
+            "William, It Was Really Nothing - The Smiths",
+            "Cemetry Gates - The Smiths",
+            "The Queen Is Dead - The Smiths",
+            "Asleep - The Smiths",
+            "Unhappy Birthday - The Smiths",
+            "Stretch Out and Wait - The Smiths",
+            "That Joke Isn't Funny Anymore - The Smiths",
+            "Death of a Disco Dancer - The Smiths",
+            "I Started Something I Couldn't Finish - The Smiths",
+            "Vicar in a Tutu - The Smiths",
+            "Rubber Ring - The Smiths",
+            "How Soon Is Now? (Extended Version) - The Smiths",
+            "Shakespeare's Sister - The Smiths",
+            "Last Night I Dreamt That Somebody Loved Me - The Smiths",
+            "Bigmouth Strikes Again - The Smiths",
+            "Handsome Devil - The Smiths",
+            "I Want the One I Can't Have - The Smiths",
+            "Suffer Little Children - The Smiths",
+            "Girlfriend in a Coma - The Smiths",
+            "There Is a Light That Never Goes Out - The Smiths",
+            "Heaven Knows I'm Miserable Now - The Smiths",
+            "Sweet and Tender Hooligan - The Smiths",
+            "Panic - The Smiths",
+            "The Draize Train - The Smiths",
+            "Is It Really So Strange? - The Smiths",
+            "Reel Around the Fountain - The Smiths",
+            "Barbarism Begins at Home - The Smiths",
+            "Nowhere Fast - The Smiths",
+            "Rusholme Ruffians - The Smiths",
+            "You Just Haven't Earned It Yet, Baby - The Smiths",
+            "Stretch Out and Wait - The Smiths",
+            "These Things Take Time - The Smiths",
+            "I Won't Share You - The Smiths",
+            "Miserable Lie - The Smiths",
+            "Back to the Old House - The Smiths",
+            "Death at One's Elbow - The Smiths",
+            "Golden Lights - The Smiths",
+            "Half a Person - The Smiths",
+            "Youre the One for Me, Fatty - Morrissey",
+            "Im Not Sorry - Morrissey",
+            "The National Front Disco - Morrissey",
+            "Sing Your Life - Morrissey",
+            "The Last of the Famous International Playboys - Morrissey",
+            "Suedehead - Morrissey",
+            "Everyday Is Like Sunday - Morrissey",
+            "November Spawned a Monster - Morrissey",
+            "We Hate It When Our Friends Become Successful - Morrissey",
+            "Will Never Marry - Morrissey",
+            "Such a Little Thing Makes Such a Big Difference - Morrissey",
+            "First of the Gang to Die - Morrissey",
+            "Irish Blood, English Heart - Morrissey",
+            "I'm Throwing My Arms Around Paris - Morrissey",
+            "The World Is Full of Crashing Bores - Morrissey",
+            "You Have Killed Me - Morrissey",
+            "Thats How People Grow Up - Morrissey",
+            "All You Need Is Me - Morrissey",
+            "Im OK by Myself - Morrissey",
+            "The More You Ignore Me, The Closer I Get - Morrissey",
+            "Speedway - Morrissey",
+            "Black-Eyed Susan - Morrissey",
+            "Scandinavia - Morrissey",
+            "Let Me Kiss You - Morrissey",
+            "Youre Gonna Need Someone on Your Side - Morrissey",
+            "Trouble Loves Me - Morrissey",
+            "The Teacher's Are Afraid of the Pupils - Morrissey",
+            "Wide to Receive - Morrissey",
+            "Alma Matters - Morrissey",
+            "My Love Life - Morrissey",
+            "The Youngest Was the Most Loved - Morrissey",
+            "Life Is a Pigsty - Morrissey",
+            "Something Is Squeezing My Skull - Morrissey",
+            "I Am Not a Dog on a Chain - Morrissey",
+            "Sunny - Johnny Marr",
+            "The Right Thing Right - Johnny Marr",
+            "Easy Money - Johnny Marr",
+            "Hi Hello - Johnny Marr",
+            "Word Starts Attack - Johnny Marr",
+            "Dynamo - Johnny Marr",
+            "The It-Switch - Johnny Marr",
+            "New Town Velocity - Johnny Marr",
+            "Upstarts - Johnny Marr",
+            "Back in the Box - Johnny Marr",
+            "The Whistling Song - Johnny Marr",
+            "Life Is Sweet - Johnny Marr",
+            "Sunshine - Johnny Marr",
+            "The Man with the Golden Arm - Johnny Marr",
+            "She Is the One - Johnny Marr",
+            "Armatopia - Johnny Marr",
+            "Down on the Corner - Johnny Marr",
+            "Salt of the Earth - Johnny Marr",
+            "Fool on the Hill - Johnny Marr",
+            "The Right Sort - Johnny Marr",
+            "Change - Johnny Marr",
+            "The Ghost of a Chance - Johnny Marr",
+            "The End of a Century - Blur",
+            "Nowhere Fast - The Smiths",
+            "The Right Thing Right - Johnny Marr",
+            "Hi Hello - Johnny Marr"
+            
+        ];
+
+        // Function to generate a random song from the list
+        function generateSong() {
+            const randomSong = songs[Math.floor(Math.random() * songs.length)];
+            document.getElementById("randomSong").innerText = randomSong;
+        }
+
+        // Draggable functionality for images
+        function makeDraggable(element) {
+            let offsetX = 0, offsetY = 0, isDragging = false;
+
+            element.addEventListener('mousedown', function(e) {
+                isDragging = true;
+
+                // Get initial mouse position and element position
+                offsetX = e.clientX - element.getBoundingClientRect().left;
+                offsetY = e.clientY - element.getBoundingClientRect().top;
+
+                element.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    element.style.left = `${e.clientX - offsetX}px`;
+                    element.style.top = `${e.clientY - offsetY}px`;
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+                element.style.cursor = 'grab';
+            });
+        }
+
+        // Make all images draggable
+        makeDraggable(document.getElementById('draggableImage'));
+        makeDraggable(document.getElementById('disc'));
+        makeDraggable(document.getElementById('pin'));  // Added draggable functionality for pin image
+    </script>
+
+</body>
+</html>
