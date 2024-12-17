@@ -124,6 +124,41 @@ img:hover {
     filter: brightness(1.2); /* Brighten on hover */
 }
 
+.container {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #ff69b4;
+}
+
+#question-container {
+    margin: 20px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+
+
     </style>
 </head>
 <body>
@@ -143,7 +178,18 @@ img:hover {
     
     <img src="smiths.png" id="disc" width="250" height="230">
     <img src="https://cdn10.bigcommerce.com/s-yhxhf/products/5340/images/9698/1EI019__44516.1428797325.600.600.png?c=2" id="pin" width="250" height="230">
-
+    <div class="container">
+        <h1>SMITHS TRIVIA</h1>
+        <p>Test your knowledge of The Smiths!</p>
+        <div id="question-container">
+            <p id="question">Welcome to Smiths Trivia! Click "Start" to begin.</p>
+            <input type="text" id="answer" placeholder="Your answer here" />
+            <button onclick="checkAnswer()">Submit Answer</button>
+        </div>
+        <p id="score">Score: 0</p>
+        <button onclick="startTrivia()">Start Trivia</button>
+    </div>
+    
     <script>
         // List of songs from The Smiths, Morrissey, and Johnny Marr
         const songs = [
@@ -301,6 +347,84 @@ img:hover {
         makeDraggable(document.getElementById('draggableImage'));
         makeDraggable(document.getElementById('disc'));
         makeDraggable(document.getElementById('pin'));  // Added draggable functionality for pin image
+
+        let score = 0;
+let currentQuestionIndex = 0;
+
+// Array of trivia questions with possible answers and the correct answer
+const triviaQuestions = [
+    {
+        question: "What year was The Smiths' debut album released?",
+        answer: "1984"
+    },
+    {
+        question: "Which song includes the lyrics 'Take me out tonight'? ",
+        answer: "There Is a Light That Never Goes Out"
+    },
+    {
+        question: "Who was the lead guitarist for The Smiths?",
+        answer: "Johnny Marr"
+    },
+    {
+        question: "What is the name of Morrissey's book about his life?",
+        answer: "Autobiography"
+    },
+    {
+        question: "What was the title of The Smiths' last studio album?",
+        answer: "Strangeways, Here We Come"
+    },
+    {
+        question: "Which Smiths song was inspired by playwright William?",
+        answer: "Shakespeare's Sister"
+    },
+    {
+        question: "Which city are The Smiths originally from?",
+        answer: "Manchester"
+    },
+    {
+        question: "What is the name of Morrissey's first solo album?",
+        answer: "Viva Hate"
+    }
+];
+
+// Start the trivia game
+function startTrivia() {
+    score = 0;
+    currentQuestionIndex = 0;
+    document.getElementById("score").innerText = "Score: " + score;
+    nextQuestion();
+}
+
+// Show the next question
+function nextQuestion() {
+    if (currentQuestionIndex < triviaQuestions.length) {
+        document.getElementById("question").innerText = triviaQuestions[currentQuestionIndex].question;
+        document.getElementById("answer").value = "";
+    } else {
+        document.getElementById("question").innerText = "Trivia Over! Your final score is: " + score;
+        document.getElementById("answer").style.display = "none";
+        document.getElementById("question-container").innerHTML += "<button onclick='startTrivia()'>Play Again</button>";
+    }
+}
+
+// Check the user's answer
+function checkAnswer() {
+    const userAnswer = document.getElementById("answer").value.trim();
+    const correctAnswer = triviaQuestions[currentQuestionIndex].answer;
+
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+        alert("Correct! Well done.");
+    } else {
+        alert("Oops, that's not quite right. The correct answer was: " + correctAnswer);
+    }
+
+    currentQuestionIndex++;
+    nextQuestion();
+}
+
+
     </script>
 
 </body>

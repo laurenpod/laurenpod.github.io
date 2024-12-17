@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Rotating Cube</title>
+  <title>3D Rubik's Cube</title>
   <style>
     body {
       margin: 0;
@@ -11,9 +11,9 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #f0f0f0;
+      background-color: #85a6ff;
       overflow: hidden;
-      perspective: 1000px;
+      perspective: 1000px; /* Depth for 3D effect */
     }
 
     .cube {
@@ -35,6 +35,7 @@
       box-sizing: border-box;
     }
 
+    /* Define the colors for each face */
     .cube .front  { transform: translateZ(150px); background-color: #ffffff; }
     .cube .back   { transform: rotateY(180deg) translateZ(150px); background-color: #0000ff; }
     .cube .left   { transform: rotateY(-90deg) translateZ(150px); background-color: #ff0000; }
@@ -42,12 +43,74 @@
     .cube .top    { transform: rotateX(90deg) translateZ(150px); background-color: #00ff00; }
     .cube .bottom { transform: rotateX(-90deg) translateZ(150px); background-color: #ffa500; }
 
+    /* Create the individual pieces on each face */
     .cube .face .piece {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
-      border: 2px solid black;
+      border: 2px solid black; /* Black border for grid lines */
     }
+
+    /* Colors for Rubik's Cube squares */
+    .front .piece:nth-child(1) { background-color: #ff0000; }
+    .front .piece:nth-child(2) { background-color: #ff0000; }
+    .front .piece:nth-child(3) { background-color: #ff0000; }
+    .front .piece:nth-child(4) { background-color: #ff0000; }
+    .front .piece:nth-child(5) { background-color: #ff0000; }
+    .front .piece:nth-child(6) { background-color: #ff0000; }
+    .front .piece:nth-child(7) { background-color: #ff0000; }
+    .front .piece:nth-child(8) { background-color: #ff0000; }
+    .front .piece:nth-child(9) { background-color: #ff0000; }
+
+    .back .piece:nth-child(1) { background-color: #0000ff; }
+    .back .piece:nth-child(2) { background-color: #0000ff; }
+    .back .piece:nth-child(3) { background-color: #0000ff; }
+    .back .piece:nth-child(4) { background-color: #0000ff; }
+    .back .piece:nth-child(5) { background-color: #0000ff; }
+    .back .piece:nth-child(6) { background-color: #0000ff; }
+    .back .piece:nth-child(7) { background-color: #0000ff; }
+    .back .piece:nth-child(8) { background-color: #0000ff; }
+    .back .piece:nth-child(9) { background-color: #0000ff; }
+
+    .left .piece:nth-child(1) { background-color: #ff0000; }
+    .left .piece:nth-child(2) { background-color: #ff0000; }
+    .left .piece:nth-child(3) { background-color: #ff0000; }
+    .left .piece:nth-child(4) { background-color: #ff0000; }
+    .left .piece:nth-child(5) { background-color: #ff0000; }
+    .left .piece:nth-child(6) { background-color: #ff0000; }
+    .left .piece:nth-child(7) { background-color: #ff0000; }
+    .left .piece:nth-child(8) { background-color: #ff0000; }
+    .left .piece:nth-child(9) { background-color: #ff0000; }
+
+    .right .piece:nth-child(1) { background-color: #ffff00; }
+    .right .piece:nth-child(2) { background-color: #ffff00; }
+    .right .piece:nth-child(3) { background-color: #ffff00; }
+    .right .piece:nth-child(4) { background-color: #ffff00; }
+    .right .piece:nth-child(5) { background-color: #ffff00; }
+    .right .piece:nth-child(6) { background-color: #ffff00; }
+    .right .piece:nth-child(7) { background-color: #ffff00; }
+    .right .piece:nth-child(8) { background-color: #ffff00; }
+    .right .piece:nth-child(9) { background-color: #ffff00; }
+
+    .top .piece:nth-child(1) { background-color: #00ff00; }
+    .top .piece:nth-child(2) { background-color: #00ff00; }
+    .top .piece:nth-child(3) { background-color: #00ff00; }
+    .top .piece:nth-child(4) { background-color: #00ff00; }
+    .top .piece:nth-child(5) { background-color: #00ff00; }
+    .top .piece:nth-child(6) { background-color: #00ff00; }
+    .top .piece:nth-child(7) { background-color: #00ff00; }
+    .top .piece:nth-child(8) { background-color: #00ff00; }
+    .top .piece:nth-child(9) { background-color: #00ff00; }
+
+    .bottom .piece:nth-child(1) { background-color: #ffa500; }
+    .bottom .piece:nth-child(2) { background-color: #ffa500; }
+    .bottom .piece:nth-child(3) { background-color: #ffa500; }
+    .bottom .piece:nth-child(4) { background-color: #ffa500; }
+    .bottom .piece:nth-child(5) { background-color: #ffa500; }
+    .bottom .piece:nth-child(6) { background-color: #ffa500; }
+    .bottom .piece:nth-child(7) { background-color: #ffa500; }
+    .bottom .piece:nth-child(8) { background-color: #ffa500; }
+    .bottom .piece:nth-child(9) { background-color: #ffa500; }
 
     @keyframes rotate {
       0% { transform: rotateX(0deg) rotateY(0deg); }
@@ -130,14 +193,38 @@
     let rotateX = 0;
     let rotateY = 0;
 
-    // Add a simple loop for rotating the cube
-    function animate() {
-      rotateY += 0.1;
-      rotateX += 0.1;
-      cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      requestAnimationFrame(animate);
-    }
-    animate();
+    // Allow for user interaction via mouse
+    let isDragging = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    document.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const deltaX = e.clientX - lastX;
+        const deltaY = e.clientY - lastY;
+
+        rotateY += deltaX * 0.5;
+        rotateX -= deltaY * 0.5;
+
+        // Limit the vertical rotation to avoid flipping
+        rotateX = Math.max(Math.min(rotateX, 90), -90);
+
+        cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
   </script>
 </body>
 </html>
