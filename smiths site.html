@@ -351,78 +351,123 @@ input {
         let score = 0;
 let currentQuestionIndex = 0;
 
-// Array of trivia questions with possible answers and the correct answer
+// Array of trivia questions with answers
 const triviaQuestions = [
-    {
-        question: "What year was The Smiths' debut album released?",
-        answer: "1984"
-    },
-    {
-        question: "Which song includes the lyrics 'Take me out tonight'? ",
-        answer: "There Is a Light That Never Goes Out"
-    },
-    {
-        question: "Who was the lead guitarist for The Smiths?",
-        answer: "Johnny Marr"
-    },
-    {
-        question: "What is the name of Morrissey's book about his life?",
-        answer: "Autobiography"
-    },
-    {
-        question: "What was the title of The Smiths' last studio album?",
-        answer: "Strangeways, Here We Come"
-    },
-    {
-        question: "Which Smiths song was inspired by playwright William?",
-        answer: "Shakespeare's Sister"
-    },
-    {
-        question: "Which city are The Smiths originally from?",
-        answer: "Manchester"
-    },
-    {
-        question: "What is the name of Morrissey's first solo album?",
-        answer: "Viva Hate"
-    }
+    { question: "What year was The Smiths' debut album released?", answer: "1984" },
+    { question: "Which song includes the lyrics 'Take me out tonight'?", answer: "There Is a Light That Never Goes Out" },
+    { question: "Who was the lead guitarist for The Smiths?", answer: "Johnny Marr" },
+    { question: "What is the name of Morrissey's book about his life?", answer: "Autobiography" },
+    { question: "What was the title of The Smiths' last studio album?", answer: "Strangeways, Here We Come" },
+    { question: "Which Smiths song was inspired by playwright William?", answer: "Shakespeare's Sister" },
+    { question: "Which city are The Smiths originally from?", answer: "Manchester" },
+    { question: "What Morrissey solo song features a nod to The Smiths' 'The Queen Is Dead'?", answer: "The National Front Disco" },
+    { question: "Which Smiths song was covered by Radiohead?", answer: "The Headmaster Ritual" },
+    { question: "Which Smiths song did Noel Gallagher say influenced his songwriting?", answer: "This Charming Man" },
+    { question: "What was Morrissey's signature stage prop during Smiths concerts?", answer: "Flowers (usually gladioli)" },
+    { question: "Which song title references Shakespeare?", answer: "Shakespeare's Sister" },
+    { question: "What song features a jangly guitar riff influenced by Motown?", answer: "This Charming Man" },
+    { question: "Who covered 'Please, Please, Please Let Me Get What I Want' for a famous 80s film soundtrack?", answer: "The Dream Academy (Ferris Bueller's Day Off)" },
+    { question: "What did Morrissey describe 'Meat Is Murder' as during interviews?", answer: "The most important album ever made" },
+    { question: "What year was the compilation album 'Hatful of Hollow' released?", answer: "1984" },
+    { question: "Which Smiths song contains yodeling from Morrissey?", answer: "Sheila Take a Bow" },
+    { question: "Which Smiths song is about child murders in Manchester?", answer: "Suffer Little Children" },
+    { question: "In which song does Morrissey mention 'Rusholme Ruffians'?", answer: "Rusholme Ruffians" },
+    { question: "What instrumental track appears on 'The Queen Is Dead' album?", answer: "The Draize Train" },
+    { question: "Which B-side features the line, 'But I know that you would love me'?", answer: "Please, Please, Please Let Me Get What I Want" },
+    { question: "Which Smiths song features whistling at the end?", answer: "Frankly, Mr. Shankly" },
+    { question: "Which track was famously left off the 'Meat Is Murder' album but later became a fan favorite?", answer: "How Soon Is Now?" },
+    { question: "Name the Smiths song where Morrissey sings about 'unhappy birthday'.", answer: "Unhappy Birthday" },
+    { question: "Which Smiths song is often considered their most political?", answer: "Meat Is Murder" },
+    { question: "Which track opens with the line, 'Belligerent ghouls run Manchester schools'?", answer: "The Headmaster Ritual" },
+    { question: "Which song includes the lyric, 'It’s so easy to laugh, it’s so easy to hate'?", answer: "I Know It's Over" },
+    { question: "What was Johnny Marr’s birth name?", answer: "John Maher" },
+    { question: "What was Morrissey’s full name?", answer: "Steven Patrick Morrissey" },
+    { question: "Which Smiths member briefly played with The Pretenders?", answer: "Johnny Marr" },
+    { question: "Who was the producer of most Smiths albums?", answer: "Stephen Street" },
+    { question: "What band did Morrissey first audition for before The Smiths?", answer: "Slaughter & The Dogs" },
+    { question: "Who designed most of The Smiths' iconic cover art?", answer: "Morrissey" },
+    { question: "Why did The Smiths break up?", answer: "Tensions between Morrissey and Johnny Marr" },
+    { question: "What instrument did Andy Rourke play?", answer: "Bass guitar" },
+    { question: "Which drummer replaced Mike Joyce temporarily in 1984?", answer: "Craig Gannon" },
+    { question: "Who co-wrote all of The Smiths' songs with Morrissey?", answer: "Johnny Marr" },
+    { question: "How many studio albums did The Smiths release?", answer: "4" },
+    { question: "What year was 'Meat Is Murder' released?", answer: "1985" },
+    { question: "Which album features 'The Headmaster Ritual'?", answer: "Meat Is Murder" },
+    { question: "What was the name of The Smiths' final studio album?", answer: "Strangeways, Here We Come" },
+    { question: "Which Smiths album opens with 'The Queen Is Dead'?", answer: "The Queen Is Dead" },
+    { question: "What is the opening track of 'The Smiths' debut album?", answer: "Reel Around the Fountain" },
+    { question: "Which album features 'Bigmouth Strikes Again'?", answer: "The Queen Is Dead" },
+    { question: "Name the live album released by The Smiths in 1988.", answer: "Rank" },
+    { question: "Which album features the song 'That Joke Isn't Funny Anymore'?", answer: "Meat Is Murder" },
+    { question: "What album contains the track 'Stop Me If You Think You've Heard This One Before'?", answer: "Strangeways, Here We Come" },
+    { question: "Complete the lyric: 'And if a double-decker bus...'", answer: "Crashes into us, to die by your side is such a heavenly way to die" },
+    { question: "Which song opens with the line, 'A dreaded sunny day, so I meet you at the cemetery gates'?", answer: "Cemetry Gates" },
+    { question: "In which song does Morrissey sing, 'Heaven knows I’m miserable now'?", answer: "Heaven Knows I'm Miserable Now" },
+    { question: "‘Panic’ urges listeners to 'hang the DJ' because of what?", answer: "The music that they constantly play says nothing to me about my life" },
+    { question: "In which song would you hear 'To die by your side is such a heavenly way to die'?", answer: "There Is a Light That Never Goes Out" },
+    { question: "‘Girlfriend in a Coma’ was featured on which album?", answer: "Strangeways, Here We Come" },
+    { question: "Which song features the lyric, 'I am the son and the heir of nothing in particular'?", answer: "How Soon Is Now?" },
+    { question: "Name the Smiths song that begins with the sound of a music box.", answer: "Asleep" },
+    { question: "In which song does Morrissey sing, 'I would go out tonight, but I haven’t got a stitch to wear'?", answer: "This Charming Man" },
+    { question: "Which Smiths song has the line, 'So, I broke into the palace with a sponge and a rusty spanner'?", answer: "The Queen Is Dead" },
+    { question: "What year was The Smiths formed?", answer: "1982" },
+    { question: "In which city was The Smiths formed?", answer: "Manchester" },
+    { question: "Who were the four main members of The Smiths?", answer: "Morrissey, Johnny Marr, Andy Rourke, Mike Joyce" },
+    { question: "Who was The Smiths' lead singer?", answer: "Morrissey" },
+    { question: "Who played the guitar in The Smiths?", answer: "Johnny Marr" },
+    { question: "Which record label first signed The Smiths?", answer: "Rough Trade" },
+    { question: "What was The Smiths' debut single?", answer: "Hand in Glove" },
+    { question: "What was the name of The Smiths' first album?", answer: "The Smiths" },
+    { question: "In what year did The Smiths break up?", answer: "1987" },
+    { question: "Which music magazine declared The Smiths the 'most influential band' in the UK in the 1980s?", answer: "NME" },
 ];
 
-// Start the trivia game
+// Fisher-Yates Shuffle function to randomize the questions array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Function to start the trivia game
 function startTrivia() {
     score = 0;
     currentQuestionIndex = 0;
+    shuffleArray(triviaQuestions); // Shuffle questions at the start
+    displayQuestion();
     document.getElementById("score").innerText = "Score: " + score;
-    nextQuestion();
 }
 
-// Show the next question
-function nextQuestion() {
+// Function to display the next question
+function displayQuestion() {
     if (currentQuestionIndex < triviaQuestions.length) {
         document.getElementById("question").innerText = triviaQuestions[currentQuestionIndex].question;
-        document.getElementById("answer").value = "";
     } else {
-        document.getElementById("question").innerText = "Trivia Over! Your final score is: " + score;
-        document.getElementById("answer").style.display = "none";
-        document.getElementById("question-container").innerHTML += "<button onclick='startTrivia()'>Play Again</button>";
+        // All questions have been asked
+        document.getElementById("question").innerText = "Trivia complete! Final Score: " + score;
+        currentQuestionIndex = 0; // Reset for next game
     }
 }
 
-// Check the user's answer
+// Function to check the user's answer
 function checkAnswer() {
     const userAnswer = document.getElementById("answer").value.trim();
     const correctAnswer = triviaQuestions[currentQuestionIndex].answer;
 
     if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
         score++;
-        document.getElementById("score").innerText = "Score: " + score;
-        alert("Correct! Well done.");
+        alert("Correct!");
     } else {
-        alert("Oops, that's not quite right. The correct answer was: " + correctAnswer);
+        alert("Wrong! The correct answer was: " + correctAnswer);
     }
 
+    document.getElementById("score").innerText = "Score: " + score;
     currentQuestionIndex++;
-    nextQuestion();
+    document.getElementById("answer").value = ""; // Clear input field
+    displayQuestion();
 }
+
 
 
     </script>
