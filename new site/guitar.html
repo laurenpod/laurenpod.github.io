@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Guitar</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+        }
+        .guitar {
+            position: relative;
+            width: 150px;
+            height: 250px;
+            background-color: #8B5A2B;
+            border-radius: 50% 50% 40% 40%;
+        }
+        .neck {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            width: 20px;
+            height: 120px;
+            background-color: #6B4226;
+            transform: translateX(-50%);
+        }
+        .headstock {
+            position: absolute;
+            top: -140px;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #6B4226;
+            border-radius: 10px;
+            transform: translateX(-50%);
+        }
+        .tuners {
+            position: absolute;
+            top: -135px;
+            left: 50%;
+            width: 50px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateX(-50%);
+        }
+        .tuner {
+            width: 8px;
+            height: 8px;
+            background-color: silver;
+            border-radius: 50%;
+        }
+        .strings {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            width: 60px;
+            height: 180px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateX(-50%);
+        }
+        .string {
+            width: 2px;
+            height: 180px;
+            background: linear-gradient(silver, white);
+            transition: transform 0.2s ease-in-out;
+        }
+        .strings:hover .string {
+            animation: vibrate 0.2s infinite alternate ease-in-out;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(-2px); }
+            100% { transform: translateX(2px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="guitar">
+        <div class="neck"></div>
+        <div class="headstock"></div>
+        <div class="tuners">
+            <div class="tuner"></div>
+            <div class="tuner"></div>
+            <div class="tuner"></div>
+            <div class="tuner"></div>
+            <div class="tuner"></div>
+        </div>
+        <div class="strings">
+            <div class="string"></div>
+            <div class="string"></div>
+            <div class="string"></div>
+            <div class="string"></div>
+            <div class="string"></div>
+        </div>
+    </div>
+</body>
+</html>
