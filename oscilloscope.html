@@ -3,37 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oscilloscope</title>
+    <title>Tech Oscilloscope with Music Player</title>
     <style>
-        canvas {
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        body { background: black; overflow: hidden; }
+        canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; }
+        
+        /* Tech-inspired music player */
+        .player-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 420px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgb(0, 255, 13);
+            box-shadow: 0 0 10px #0ff, inset 0 0 10px rgb(0, 255, 110);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .player-title {
+            color: rgb(0, 255, 72);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background: none;
+            border: 2px solid rgb(0, 255, 51);
+            color: rgb(0, 255, 68);
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: rgb(0, 255, 38);
+            color: black;
+            box-shadow: 0 0 10px rgb(0, 255, 30);
+        }
+
+        .progress-bar {
             width: 100%;
-            height: 300px;
-            background: black;
-        } 
+            height: 5px;
+            background: #222;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: #0ff;
+            width: 0%;
+            transition: width 0.2s;
+        }
+
+        .sliders {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            color: rgb(0, 255, 132);
+            font-size: 12px;
+        }
+
+        input[type="range"] {
+            width: 100px;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 5px;
+            background: rgb(32, 128, 54);
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: white;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -4px;
+        }
     </style>
 </head>
 <body>
-    <audio id="audio" controls>
-        <source src="duran.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+
     <canvas id="oscilloscope"></canvas>
 
+    <!-- Tech Music Player -->
+    <div class="player-box">
+        <div class="player-title">Now Playing</div>
+
+        <!-- Song Selector -->
+        <div class="song-selector">
+            <select id="songSelector">
+                <option value="dancefloor.mp3">Song 1 - Murder on the Dancefloor</option>
+                <option value="beatles.mp3">Song 2 - In My Life</option>
+                <option value="beegee.mp3">Song 3 - Stayin' Alive</option>
+            </select>
+        </div>
+
+        <audio id="audio">
+            <source src="dancefloor.mp3" type="audio/mpeg">
+        </audio>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="playPause">▶</button>
+            <button class="btn" id="stop">⏹</button>
+        </div>
+
+        <div class="sliders">
+            <label>Volume: <input type="range" id="volume" min="0" max="1" step="0.05" value="1"></label>
+            <label>Speed: <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1"></label>
+        </div>
+    </div>
+
     <script>
-        const audio = document.getElementById("audio");
         const canvas = document.getElementById("oscilloscope");
         const ctx = canvas.getContext("2d");
-
         canvas.width = window.innerWidth;
-        canvas.height = 300;
+        canvas.height = window.innerHeight;
+
+        const audio = document.getElementById("audio");
+        const playPauseBtn = document.getElementById("playPause");
+        const stopBtn = document.getElementById("stop");
+        const volumeSlider = document.getElementById("volume");
+        const speedSlider = document.getElementById("speed");
+        const progressBar = document.querySelector(".progress");
+        const songSelector = document.getElementById("songSelector");
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 2048;
+        analyser.fftSize = 1024;
 
         const source = audioCtx.createMediaElementSource(audio);
         source.connect(analyser);
-        analyser.connect(audioCtx.destination); // Allows playback
+        analyser.connect(audioCtx.destination);
 
         function draw() {
             requestAnimationFrame(draw);
@@ -55,23 +182,45 @@
             for (let i = 0; i < bufferLength; i++) {
                 const y = (dataArray[i] / 255.0) * canvas.height;
 
-                if (i === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+                
                 x += sliceWidth;
             }
-
             ctx.stroke();
+
+            progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
         }
 
-        audio.addEventListener("play", () => {
-            if (audioCtx.state === "suspended") {
+        playPauseBtn.addEventListener("click", () => {
+            if (audio.paused) {
                 audioCtx.resume();
+                audio.play();
+                playPauseBtn.textContent = "⏸";
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = "▶";
             }
-            draw();
         });
+
+        stopBtn.addEventListener("click", () => {
+            audio.pause();
+            audio.currentTime = 0;
+            playPauseBtn.textContent = "▶";
+        });
+
+        volumeSlider.addEventListener("input", () => audio.volume = volumeSlider.value);
+        speedSlider.addEventListener("input", () => audio.playbackRate = speedSlider.value);
+
+        songSelector.addEventListener("change", () => {
+            const selectedSong = songSelector.value;
+            audio.src = selectedSong;
+            audio.play();
+            playPauseBtn.textContent = "⏸";
+        });
+
+        audio.addEventListener("play", () => draw());
     </script>
+
 </body>
 </html>
