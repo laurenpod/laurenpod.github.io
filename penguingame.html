@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penguin Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #87CEEB;
+      overflow: hidden;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: #f0f0f0;
+      border: 2px solid black;
+      overflow: hidden;
+    }
+
+    .penguin {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      bottom: 20px;
+      left: 200px;
+      background-size: cover;
+      background-image: url('https://sciencecity.gujarat.gov.in/web/image?model=aquarium.specie&field=photo_digram&id=163'); /* Your penguin image */
+    }
+
+    .fish {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      background-size: cover;
+      background-image: url('https://www.wildlifedepartment.com/sites/default/files/2021-08/Large-Mouth-Bass.png'); /* Your fish image */
+    }
+
+    .score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="penguin" id="penguin"></div>
+    <div class="score" id="score">Score: 0</div>
+  </div>
+
+  <script>
+    const gameContainer = document.querySelector('.game-container');
+    const penguin = document.getElementById('penguin');
+    const scoreElement = document.getElementById('score');
+
+    let score = 0;
+    let penguinX = 200;
+    let penguinY = gameContainer.offsetHeight - penguin.offsetHeight - 20;
+    let isMovingLeft = false;
+    let isMovingRight = false;
+    let isMovingUp = false;
+    let isMovingDown = false;
+
+    // Move the penguin based on arrow keys
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        isMovingLeft = true;
+      } else if (e.key === 'ArrowRight') {
+        isMovingRight = true;
+      } else if (e.key === 'ArrowUp') {
+        isMovingUp = true;
+      } else if (e.key === 'ArrowDown') {
+        isMovingDown = true;
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft') {
+        isMovingLeft = false;
+      } else if (e.key === 'ArrowRight') {
+        isMovingRight = false;
+      } else if (e.key === 'ArrowUp') {
+        isMovingUp = false;
+      } else if (e.key === 'ArrowDown') {
+        isMovingDown = false;
+      }
+    });
+
+    function movePenguin() {
+      if (isMovingLeft && penguinX > 0) {
+        penguinX -= 5;
+      }
+      if (isMovingRight && penguinX < gameContainer.offsetWidth - penguin.offsetWidth) {
+        penguinX += 5;
+      }
+      if (isMovingUp && penguinY > 0) {
+        penguinY -= 5;
+      }
+      if (isMovingDown && penguinY < gameContainer.offsetHeight - penguin.offsetHeight) {
+        penguinY += 5;
+      }
+      penguin.style.left = `${penguinX}px`;
+      penguin.style.top = `${penguinY}px`;
+    }
+
+    function createFish() {
+      const fish = document.createElement('div');
+      fish.classList.add('fish');
+      fish.style.left = `${Math.random() * (gameContainer.offsetWidth - 50)}px`;
+      gameContainer.appendChild(fish);
+
+      let fishY = -50;
+      const fallSpeed = 3;
+
+      function fallFish() {
+        fishY += fallSpeed;
+        fish.style.top = `${fishY}px`;
+
+        // If the fish reaches the bottom, remove it
+        if (fishY > gameContainer.offsetHeight) {
+          fish.remove();
+        }
+
+        // Check for collision with the penguin
+        if (
+          fishY + 50 >= penguinY && // Fish reaches the penguin's level
+          fishY + 50 <= penguinY + 100 &&
+          parseInt(fish.style.left) >= penguinX &&
+          parseInt(fish.style.left) <= penguinX + 100
+        ) {
+          score += 1;
+          scoreElement.textContent = `Score: ${score}`;
+          fish.remove();
+        }
+      }
+
+      setInterval(fallFish, 20);
+    }
+
+    // Spawn fish every 1.5 seconds
+    setInterval(createFish, 1500);
+
+    function gameLoop() {
+      movePenguin();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+  </script>
+</body>
+</html>
