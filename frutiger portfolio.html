@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Frutiger Aero — Portfolio</title>
+  <!--
+    Notes:
+    - This is a single-file demo. Move <style> to an external CSS file if you prefer.
+    - "Frutiger" is a commercial font; replace with a licensed local @font-face or keep the fallbacks.
+  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    /* Variables */
+    :root{
+      --bg-1: linear-gradient(135deg, rgb(255, 255, 255), rgb(255, 255, 255));
+      --accent:  #afdaff;
+      --muted:   rgb(255, 225, 225);
+      --glass:   rgb(255, 228, 228);
+      --card:    rgba(255, 252, 252, 0.925);
+      --radius: 18px;
+      --maxw:    1100px;
+      --gap:     20px;
+      color-scheme: light;
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Frutiger, 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(0,135,255,0.06), transparent),
+                  radial-gradient(900px 400px at 90% 80%, rgba(255,20,147,0.04), transparent),
+                  #8694ac;
+      color: #e6eef8;
+      padding:48px 24px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:24px;
+    }
+
+    .wrap{width:100%;max-width:var(--maxw)}
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:32px;
+    }
+
+    .brand{
+      display:flex;gap:12px;align-items:center
+    }
+    .logo{
+      width:56px;height:56px;border-radius:14px;display:inline-grid;place-items:center;
+      background: linear-gradient(135deg,var(--accent), #00e5a8);
+      box-shadow: 0 6px 30px rgba(0,135,255,0.12), inset 0 -6px 24px rgba(255,255,255,0.06);
+      font-weight:800;color:white;font-size:18px;letter-spacing:0.6px
+    }
+    .name{font-weight:600;font-size:18px}
+    .tag{font-size:13px;color:var(--muted);margin-top:2px}
+
+    nav{display:flex;gap:14px;align-items:center}
+    .nav-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;font-weight:600;cursor:pointer}
+    .nav-btn:hover{transform:translateY(-3px)}
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start;margin-bottom:28px
+    }
+
+    .hero-card{
+      padding:28px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    h1{margin:0;font-weight:800;letter-spacing:-0.6px;font-size:40px}
+    p.lead{color:var(--muted);margin-top:10px;line-height:1.5}
+
+    .cta{display:flex;gap:12px;margin-top:20px}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#00e5a8);padding:12px 18px;border-radius:12px;border:none;color:#05223a;font-weight:700;cursor:pointer}
+    .btn-ghost{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted);cursor:pointer}
+
+    /* Sideprofile */
+    .profile{
+      display:flex;flex-direction:column;gap:16px;align-items:stretch
+    }
+    .avatar{height:140px;border-radius:16px;background:linear-gradient(180deg,#ffffff22,#ffffff06);display:grid;place-items:center;font-weight:800;color:#fff}
+    .meta{display:flex;flex-direction:column;gap:6px}
+    .meta .role{font-weight:700}
+
+    /* Projects grid */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap);margin-top:20px}
+    .project{
+      border-radius:16px;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .26s ease, box-shadow .26s ease;
+    }
+    .project:hover{transform:translateY(-8px);box-shadow:0 18px 60px rgba(2,6,23,0.6)}
+    .project .thumb{height:160px;border-radius:12px;background:linear-gradient(120deg,#ffffff20,#00000010);display:block;margin-bottom:12px}
+    .project h3{margin:0;font-size:16px}
+    .project p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* Footer / contact */
+    footer{margin-top:36px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+    /* Modal (project preview) */
+    .modal{position:fixed;inset:0;display:none;place-items:center;padding:36px;background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.88));}
+    .modal.show{display:grid}
+    .modal-card{width:min(1000px,96%);max-height:80vh;overflow:auto;border-radius:18px;padding:20px;background:linear-gradient(180deg,#071428,#072039);border:1px solid rgba(255,255,255,0.04)}
+    .close{margin-left:auto;padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">LP</div>
+        <div>
+          <div class="name">Lauren Podhorzer</div>
+          <div class="tag">Designer — Systems, type & motion</div>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn">Work</button>
+        <button class="nav-btn">About</button>
+        <button class="nav-btn">Contact</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <article class="hero-card">
+          <h1>Frutiger Aero — clean type, soft light, aerodynamic rhythm</h1>
+          <p class="lead">A portfolio template that leans on the clarity of Frutiger-style type, glass-like surfaces, and gentle gradients. Use it for three to twelve featured projects and add case studies as needed.</p>
+          <div class="cta">
+            <button class="btn-primary" id="viewWork">View work</button>
+            <button class="btn-ghost" id="downloadResume">Resume</button>
+          </div>
+
+          <div style="margin-top:22px">
+            <h4 style="margin:0 0 8px 0">Skills</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span class="nav-btn" style="padding:8px 10px;font-weight:600;">Branding</span>
+              <span class="nav-btn" style="padding:8px 10px;font-weight:600;">Typography</span>
+              <span class="nav-btn" style="padding:8px 10px;font-weight:600;">Motion</span>
+              <span class="nav-btn" style="padding:8px 10px;font-weight:600;">UI</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-card profile">
+          <div class="avatar">Photo</div>
+          <div class="meta">
+            <div class="role">Independent Designer</div>
+            <div class="loc">Based in New York — available for freelance</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn-ghost">Email</button>
+              <button class="btn-ghost">Dribbble</button>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section>
+        <h2 style="margin:0 0 14px 0">Selected work</h2>
+        <div class="projects" id="projects">
+          <!-- Repeat these project cards or generate dynamically -->
+          <div class="project" data-title="Type Catalogue" data-desc="An experimental catalogue exploring the legibility of display type at scale">
+            <div class="thumb"></div>
+            <h3>Type Catalogue</h3>
+            <p>Typeface testing, grids, editorial layout</p>
+          </div>
+
+          <div class="project" data-title="Museum Wayfinding" data-desc="Wayfinding concept and signage for a modern art museum">
+            <div class="thumb"></div>
+            <h3>Museum Wayfinding</h3>
+            <p>Systems thinking, environmental graphics</p>
+          </div>
+
+          <div class="project" data-title="Motion ID" data-desc="Short idents and animated logos for a streaming label">
+            <div class="thumb"></div>
+            <h3>Motion ID</h3>
+            <p>Motion design, animation, timing</p>
+          </div>
+
+          <div class="project" data-title="Field Guide" data-desc="Field guide layouts and interactive prototype for local wildlife">
+            <div class="thumb"></div>
+            <h3>Field Guide</h3>
+            <p>Layout, UX writing, interactive PDF</p>
+          </div>
+
+        </div>
+
+        <footer>
+          <div>© <span id="year"></span> Lauren Podhorzer — Designed with a Frutiger aesthetic</div>
+          <div>Built with HTML/CSS/JS</div>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal preview -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <h3 id="modalTitle" style="margin:0">Project Title</h3>
+        <button class="close" id="closeModal">Close</button>
+      </div>
+      <div id="modalBody" style="color:var(--muted);line-height:1.6">Project description goes here.</div>
+    </div>
+  </div>
+
+  <script>
+    // small interactive behaviors
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const projects = document.querySelectorAll('.project');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+
+    projects.forEach(p=>p.addEventListener('click', ()=>{
+      modal.classList.add('show');
+      modalTitle.textContent = p.dataset.title;
+      modalBody.textContent = p.dataset.desc + '\n\nMore case study details, images, and process here. Replace this text with real content.';
+    }))
+
+    closeModal.addEventListener('click', ()=> modal.classList.remove('show'));
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('show') });
+
+    // CTA scroll
+    document.getElementById('viewWork').addEventListener('click', ()=>{
+      document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+    })
+
+    // Resume button placeholder
+    document.getElementById('downloadResume').addEventListener('click', ()=>{
+      alert('Attach your resume file and update the link in the HTML.');
+    })
+  </script>
+</body>
+</html>

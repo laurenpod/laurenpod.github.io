@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cute Song Guesser</title>
+
+<style>
+  :root{
+    --bg: rgb(250, 245, 255);
+    --card: rgb(255, 255, 255);
+    --ink: rgb(60, 60, 72);
+    --accent: rgb(255, 170, 200);
+    --accent-strong: rgb(255, 120, 170);
+    --accent-soft: rgba(255, 170, 200, 0.25);
+    --ok: rgb(90, 190, 120);
+    --warn: rgb(250, 160, 80);
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    min-height:100svh;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient(40rem 40rem at 15% 20%, rgba(255, 220, 240, .6), transparent 60%),
+      radial-gradient(36rem 36rem at 85% 15%, rgba(200, 230, 255, .6), transparent 60%),
+      radial-gradient(48rem 48rem at 70% 85%, rgba(210, 255, 225, .6), transparent 60%),
+      var(--bg);
+    font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    color:var(--ink);
+    padding: clamp(16px, 2vw, 24px);
+  }
+
+  .card{
+    width: min(94vw, 460px);
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.06);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sprinkles{
+    position:absolute; inset: -40px -40px auto auto; width:160px; height:160px;
+    background:
+      radial-gradient(18px 18px at 30% 30%, var(--accent-soft), transparent 60%),
+      radial-gradient(10px 10px at 70% 40%, var(--accent-soft), transparent 60%),
+      radial-gradient(12px 12px at 45% 75%, var(--accent-soft), transparent 60%);
+    filter: blur(0.2px);
+    pointer-events:none;
+  }
+
+  h1{
+    margin: 4px 0 14px;
+    font-size: clamp(20px, 4.6vw, 28px);
+    text-align:center;
+  }
+
+  .tag{
+    display:inline-flex; gap:8px; align-items:center;
+    margin: 0 auto 14px; padding:6px 12px; border-radius:999px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, .0), rgba(255, 255, 255, .6)) , var(--accent-soft);
+    border: 2px solid rgba(255, 170, 200, .5);
+    font-weight:600; font-size: 14px;
+  }
+
+  .row{ display:grid; gap:12px; margin-top: 14px; }
+
+  audio{
+    width:100%;
+    border-radius: 14px;
+    overflow:hidden;
+    outline: none;
+    accent-color: var(--accent-strong);
+  }
+
+  .input-wrap{
+    display:flex; gap:8px;
+    background: rgb(252, 250, 255);
+    border: 2px solid rgba(130, 110, 200, .15);
+    border-radius: 14px;
+    padding: 6px;
+  }
+
+  input[type="text"]{
+    flex:1; border:0; background:transparent;
+    padding: 10px 12px; outline:none;
+    font-size:16px; color:var(--ink);
+  }
+
+  .btn{
+    border:0; cursor:pointer; user-select:none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight:700;
+    background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+    color: white;
+    box-shadow: 0 6px 14px rgba(255, 120, 170, .35);
+    transition: transform .06s ease, filter .2s ease;
+  }
+  .btn:active{ transform: translateY(1px) scale(0.99) }
+
+  details{
+    margin-top: 6px;
+    background: rgba(255, 230, 240, .5);
+    border: 2px dashed rgba(255, 170, 200, .7);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  summary{ cursor:pointer; font-weight:700 }
+
+  /* “Demo result” toggle with pure CSS (no JS) */
+  .demo{
+    display:flex; gap:8px; align-items:center; justify-content:center; margin-top: 6px;
+    font-size: 14px;
+  }
+  .switch{
+    --w: 44px; --h: 26px;
+    position:relative; width:var(--w); height:var(--h);
+  }
+  .switch input{ position:absolute; inset:0; opacity:0 }
+  .track{
+    position:absolute; inset:0; border-radius:999px;
+    background: rgb(230, 228, 240);
+    transition: background .2s ease;
+  }
+  .thumb{
+    position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%;
+    background:white; box-shadow:0 2px 6px rgba(0,0,0,.18);
+    transition: transform .2s ease;
+  }
+  .switch input:checked ~ .track{ background: rgba(90, 190, 120, .35) }
+  .switch input:checked ~ .thumb{ transform: translateX(18px) }
+
+  .feedback{
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgb(248, 246, 255);
+    border: 2px solid rgba(130, 110, 200, .15);
+    display:flex; gap:10px; align-items:center;
+    font-size: 14px;
+  }
+  .feedback .dot{
+    width:10px; height:10px; border-radius:50%;
+    background: var(--warn);
+  }
+
+  /* When demo toggle is ON, pretend the guess is correct */
+  .switch input:checked ~ .feedback .dot{ background: var(--ok) }
+  .switch input:checked ~ .feedback .msg::before{ content:"✅ Correct! Nice ear."; }
+  .switch input:not(:checked) ~ .feedback .msg::before{ content:"💡 Try again… maybe check the intro riff."; }
+
+  footer{
+    margin-top: 12px; text-align:center; font-size: 12px; opacity:.7;
+  }
+</style>
+</head>
+<body>
+
+  <main class="card" role="main" aria-labelledby="title">
+    <div class="sprinkles" aria-hidden="true"></div>
+
+    <h1 id="title">🎵 Guess the Song</h1>
+    <div class="tag" aria-label="round info">Round 1 · 15s preview</div>
+
+    <section class="row" aria-label="audio">
+      <audio controls preload="metadata">
+        <source src="beatles.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </section>
+
+    <section class="row" aria-label="guess">
+      <div class="input-wrap">
+        <input type="text" placeholder="Type your guess (title or artist)..." aria-label="Your guess">
+        <button class="btn" type="button" aria-label="Submit guess (demo only)">Submit</button>
+      </div>
+
+      <details>
+        <summary>Need a hint?</summary>
+        <p style="margin:8px 0 0;">✨ Released in 2020 · Male vocalist · Synth-pop</p>
+      </details>
+
+        </label>
+      </div>
+    </section>
+
+    <footer> <strong></strong></footer>
+  </main>
+
+</body>
+</html>

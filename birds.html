@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Endangered and At-Risk Birds of Long Island</title> <!-- sets the tab title -->
+  <style>
+    body {
+      margin: 0;
+      font-family: "georgia", sans-serif;
+      background: linear-gradient(to bottom right, #ffffff, #ffffff);
+      color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.75rem;
+      margin: 0;
+      color: #177cc3;
+      letter-spacing: 0.5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      width: 90%;
+      max-width: 1400px;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      transition: transform 0.32s ease, box-shadow 0.32s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #eef8f3;
+    }
+
+    .card-content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.4rem;
+      margin: 0;
+      color: #1b2b8a;
+    }
+
+    .card-content p {
+      font-size: 0.93rem;
+      line-height: 1.4;
+      color: #2f4f48;
+      flex-grow: 1;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 0.5rem;
+      outline: none;
+      border-radius: 8px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Endangered And <br>At-Risk Birds<br> of Long Island</h1>
+  </header>
+
+  <section class="grid" id="species-grid">
+    <div class="card"><img src="images/saltmarsh_sparrow.gif" alt="Saltmarsh Sparrow">
+      <div class="card-content"><h2>Saltmarsh Sparrow</h2><p>Extremely rapid decline; highly specialized high-marsh breeder; sea-level rise is an existential threat. (NYSDEC / +1)</p><audio controls><source src="audio/saltmarsh_sparrow.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/roseate_tern_ne.gif" alt="Roseate Tern (NE population)">
+      <div class="card-content"><h2>Roseate Tern (NE population)</h2><p>Tiny, concentrated breeding population on LI islands; very sensitive to disturbance & prey shifts. (USFWS)</p><audio controls><source src="audio/roseate_tern_ne.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXJ3YXg2ZWRkbHkzNHlmN3NuczhzdGpxcTdqNjBpcWt6NHo4MWwzbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26n79RYYGvaSeMn4c/giphy.gif" alt="Piping Plover">
+      <div class="card-content"><h2>Piping Plover (Atlantic coast)</h2><p>Federally threatened / NY endangered; beaches heavily used by people/pets. (NYSDEC)</p><audio controls><source src="audio/piping_plover.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/black_rail.gif" alt="Black Rail">
+      <div class="card-content"><h2>Black Rail</h2><p>Secretive marsh bird with very small, fragmented populations; vulnerability to marsh inundation. (NYSDEC / +1)</p><audio controls><source src="audio/black_rail.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/clapper_rail.gif" alt="Clapper Rail (Ridgway’s / Clapper complex)">
+      <div class="card-content"><h2>Clapper Rail (Ridgway’s / Clapper complex)</h2><p>Tidal marsh specialist declining with marsh loss & flooding. (Audubon)</p><audio controls><source src="audio/clapper_rail.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/red_knot.gif" alt="Red Knot">
+      <div class="card-content"><h2>Red Knot</h2><p>Long-distance migrant with steep population declines; relies on horseshoe crab eggs. (USFWS)</p><audio controls><source src="audio/red_knot.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/american_oystercatcher.gif" alt="American Oystercatcher">
+      <div class="card-content"><h2>American Oystercatcher</h2><p>Small breeding population on LI; vulnerable to disturbance & shoreline change. (Audubon)</p><audio controls><source src="audio/american_oystercatcher.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/least_tern_coastal.gif" alt="Least Tern (coastal)">
+      <div class="card-content"><h2>Least Tern (coastal)</h2><p>Nesting beaches limited and disturbed; locally vulnerable. (Audubon)</p><audio controls><source src="audio/least_tern_coastal.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/common_tern.gif" alt="Common Tern">
+      <div class="card-content"><h2>Common Tern</h2><p>Nesting sites reduced; disturbance & predation issues. (Audubon)</p><audio controls><source src="audio/common_tern.mp3" type="audio/mpeg"></audio></div></div>
+
+    <div class="card"><img src="images/short_eared_owl.gif" alt="Short-eared Owl">
+      <div class="card-content"><h2>Short-eared Owl</h2><p>Grassland/shore-edge owl; severely reduced in NY and highly vulnerable on LI. (Grassland Bird Trust)</p><audio controls><source src="audio/short_eared_owl.mp3" type="audio/mpeg"></audio></div></div>
+
+      <!-- 11 -->
+<div class="card"><img src="images/northern_harrier.gif" alt="Northern Harrier">
+  <div class="card-content"><h2>Northern Harrier</h2><p>Open-country raptor declining due to habitat loss and wetland conversion.</p><audio controls><source src="audio/northern_harrier.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 12 -->
+<div class="card"><img src="images/black_skimmer.gif" alt="Black Skimmer">
+  <div class="card-content"><h2>Black Skimmer</h2><p>Beach-nesting bird impacted by disturbance and reduced nesting sites.</p><audio controls><source src="audio/black_skimmer.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 13 -->
+<div class="card"><img src="images/seaside_sparrow.gif" alt="Seaside Sparrow">
+  <div class="card-content"><h2>Seaside Sparrow</h2><p>Dependent on tidal marshes; vulnerable to sea-level rise and habitat loss.</p><audio controls><source src="audio/seaside_sparrow.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 14 -->
+<div class="card"><img src="images/wood_thrush.gif" alt="Wood Thrush">
+  <div class="card-content"><h2>Wood Thrush</h2><p>Forest fragmentation and climate pressures drive declines.</p><audio controls><source src="audio/wood_thrush.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 15 -->
+<div class="card"><img src="images/american_bittern.gif" alt="American Bittern">
+  <div class="card-content"><h2>American Bittern</h2><p>Marsh specialist disappearing as wetlands vanish.</p><audio controls><source src="audio/american_bittern.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 16 -->
+<div class="card"><img src="images/black_crowned_night_heron.gif" alt="Black-crowned Night Heron">
+  <div class="card-content"><h2>Black-crowned Night Heron</h2><p>Breeding colonies shrinking on coastal islands.</p><audio controls><source src="audio/black_crowned_night_heron.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 17 -->
+<div class="card"><img src="images/yellow_crowned_night_heron.gif" alt="Yellow-crowned Night Heron">
+  <div class="card-content"><h2>Yellow-crowned Night Heron</h2><p>Dependent on crabs and tidal wetlands; local losses recorded.</p><audio controls><source src="audio/yellow_crowned_night_heron.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 18 -->
+<div class="card"><img src="images/great_black_backed_gull.gif" alt="Great Black-backed Gull">
+  <div class="card-content"><h2>Great Black-backed Gull</h2><p>Coastal changes and food source shifts threaten colonies.</p><audio controls><source src="audio/great_black_backed_gull.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 19 -->
+<div class="card"><img src="images/bald_eagle.gif" alt="Bald Eagle">
+  <div class="card-content"><h2>Bald Eagle</h2><p>Rebounded but still monitored on Long Island; lead poisoning and development remain issues.</p><audio controls><source src="audio/bald_eagle.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 20 -->
+<div class="card"><img src="images/osprey.gif" alt="Osprey">
+  <div class="card-content"><h2>Osprey</h2><p>Recovered population, but vulnerable to contaminants and habitat loss.</p><audio controls><source src="audio/osprey.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 21 -->
+<div class="card"><img src="images/great_egret.gif" alt="Great Egret">
+  <div class="card-content"><h2>Great Egret</h2><p>Breeding colonies disturbed by human activity and rising seas.</p><audio controls><source src="audio/great_egret.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 22 -->
+<div class="card"><img src="images/snowy_egret.gif" alt="Snowy Egret">
+  <div class="card-content"><h2>Snowy Egret</h2><p>Population unstable due to wetland changes and nesting competition.</p><audio controls><source src="audio/snowy_egret.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 23 -->
+<div class="card"><img src="images/glossy_ibis.gif" alt="Glossy Ibis">
+  <div class="card-content"><h2>Glossy Ibis</h2><p>Saltmarsh and coastal habitat loss reducing foraging areas.</p><audio controls><source src="audio/glossy_ibis.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 24 -->
+<div class="card"><img src="images/tricolored_heron.gif" alt="Tricolored Heron">
+  <div class="card-content"><h2>Tricolored Heron</h2><p>Southern species at northern range edge; impacted by tidal habitat loss.</p><audio controls><source src="audio/tricolored_heron.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 25 -->
+<div class="card"><img src="images/willet.gif" alt="Willet">
+  <div class="card-content"><h2>Willet</h2><p>Coastal breeder; marsh flooding and development cause decline.</p><audio controls><source src="audio/willet.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 26 -->
+<div class="card"><img src="images/black_bellied_plover.gif" alt="Black-bellied Plover">
+  <div class="card-content"><h2>Black-bellied Plover</h2><p>Migration staging areas shrinking due to beach disturbance.</p><audio controls><source src="audio/black_bellied_plover.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 27 -->
+<div class="card"><img src="images/semi_palmated_sandpiper.gif" alt="Semipalmated Sandpiper">
+  <div class="card-content"><h2>Semipalmated Sandpiper</h2><p>Shorebird populations dropping due to climate change and food scarcity.</p><audio controls><source src="audio/semi_palmated_sandpiper.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 28 -->
+<div class="card"><img src="images/least_bittern.gif" alt="Least Bittern">
+  <div class="card-content"><h2>Least Bittern</h2><p>Smallest North American heron; losing breeding wetlands.</p><audio controls><source src="audio/least_bittern.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 29 -->
+<div class="card"><img src="images/eastern_meadowlark.gif" alt="Eastern Meadowlark">
+  <div class="card-content"><h2>Eastern Meadowlark</h2><p>Grassland bird disappearing due to mowing and farmland development.</p><audio controls><source src="audio/eastern_meadowlark.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 30 -->
+<div class="card"><img src="images/bobolink.gif" alt="Bobolink">
+  <div class="card-content"><h2>Bobolink</h2><p>Grassland songbird suffering from habitat conversion and pesticide use.</p><audio controls><source src="audio/bobolink.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 31 -->
+<div class="card"><img src="images/horned_lark.gif" alt="Horned Lark">
+  <div class="card-content"><h2>Horned Lark</h2><p>Open-field bird declining due to loss of sandy, barren nesting areas.</p><audio controls><source src="audio/horned_lark.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 32 -->
+<div class="card"><img src="images/barn_swallow.gif" alt="Barn Swallow">
+  <div class="card-content"><h2>Barn Swallow</h2><p>Population declines linked to insect loss and habitat changes.</p><audio controls><source src="audio/barn_swallow.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 33 -->
+<div class="card"><img src="images/tree_swallow.gif" alt="Tree Swallow">
+  <div class="card-content"><h2>Tree Swallow</h2><p>Cavity nester affected by competition and environmental toxins.</p><audio controls><source src="audio/tree_swallow.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 34 -->
+<div class="card"><img src="images/purple_martin.gif" alt="Purple Martin">
+  <div class="card-content"><h2>Purple Martin</h2><p>Declines due to nesting competition and habitat changes.</p><audio controls><source src="audio/purple_martin.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 35 -->
+<div class="card"><img src="images/american_kestrel.gif" alt="American Kestrel">
+  <div class="card-content"><h2>American Kestrel</h2><p>Small falcon facing sharp declines; nest box programs vital.</p><audio controls><source src="audio/american_kestrel.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 36 -->
+<div class="card"><img src="images/merlin.gif" alt="Merlin">
+  <div class="card-content"><h2>Merlin</h2><p>Once rare, still limited breeder on Long Island; threatened by habitat change.</p><audio controls><source src="audio/merlin.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 37 -->
+<div class="card"><img src="images/northern_bobwhite.gif" alt="Northern Bobwhite">
+  <div class="card-content"><h2>Northern Bobwhite</h2><p>Nearly vanished due to loss of shrubland and fields.</p><audio controls><source src="audio/northern_bobwhite.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 38 -->
+<div class="card"><img src="images/eastern_whip_poor_will.gif" alt="Eastern Whip-poor-will">
+  <div class="card-content"><h2>Eastern Whip-poor-will</h2><p>Nocturnal bird disappearing with insect declines and habitat loss.</p><audio controls><source src="audio/eastern_whip_poor_will.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 39 -->
+<div class="card"><img src="images/red_headed_woodpecker.gif" alt="Red-headed Woodpecker">
+  <div class="card-content"><h2>Red-headed Woodpecker</h2><p>Decline from forest management changes and loss of dead trees.</p><audio controls><source src="audio/red_headed_woodpecker.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 40 -->
+<div class="card"><img src="images/wood_pewee.gif" alt="Eastern Wood-Pewee">
+  <div class="card-content"><h2>Eastern Wood-Pewee</h2><p>Subtle but steady decline tied to forest structure and insects.</p><audio controls><source src="audio/wood_pewee.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 41 -->
+<div class="card"><img src="images/chimney_swift.gif" alt="Chimney Swift">
+  <div class="card-content"><h2>Chimney Swift</h2><p>Nesting sites disappearing as chimneys are capped or removed.</p><audio controls><source src="audio/chimney_swift.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 42 -->
+<div class="card"><img src="images/cedar_waxwing.gif" alt="Cedar Waxwing">
+  <div class="card-content"><h2>Cedar Waxwing</h2><p>Declines linked to climate shifts and fruiting plant loss.</p><audio controls><source src="audio/cedar_waxwing.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 43 -->
+<div class="card"><img src="images/brown_thrasher.gif" alt="Brown Thrasher">
+  <div class="card-content"><h2>Brown Thrasher</h2><p>Shrubland songbird losing nesting areas to development.</p><audio controls><source src="audio/brown_thrasher.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 44 -->
+<div class="card"><img src="images/veery.gif" alt="Veery">
+  <div class="card-content"><h2>Veery</h2><p>Declining with forest fragmentation and climate changes.</p><audio controls><source src="audio/veery.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 45 -->
+<div class="card"><img src="images/orchard_oriole.gif" alt="Orchard Oriole">
+  <div class="card-content"><h2>Orchard Oriole</h2><p>Rare nester on LI; loss of orchards and open woodland habitats.</p><audio controls><source src="audio/orchard_oriole.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 46 -->
+<div class="card"><img src="images/baltimore_oriole.gif" alt="Baltimore Oriole">
+  <div class="card-content"><h2>Baltimore Oriole</h2><p>Decline due to pesticide use and reduced insect populations.</p><audio controls><source src="audio/baltimore_oriole.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 47 -->
+<div class="card"><img src="images/field_sparrow.gif" alt="Field Sparrow">
+  <div class="card-content"><h2>Field Sparrow</h2><p>Shrubland bird; population shrinking from suburban expansion.</p><audio controls><source src="audio/field_sparrow.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 48 -->
+<div class="card"><img src="images/pine_warbler.gif" alt="Pine Warbler">
+  <div class="card-content"><h2>Pine Warbler</h2><p>Breeds in pine barrens; threatened by fire suppression and development.</p><audio controls><source src="audio/pine_warbler.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 49 -->
+<div class="card"><img src="images/prairie_warbler.gif" alt="Prairie Warbler">
+  <div class="card-content"><h2>Prairie Warbler</h2><p>Dependent on early successional habitats; now rare on Long Island.</p><audio controls><source src="audio/prairie_warbler.mp3" type="audio/mpeg"></audio></div></div>
+
+<!-- 50 -->
+<div class="card"><img src="images/black_throated_blue_warbler.gif" alt="Black-throated Blue Warbler">
+  <div class="card-content"><h2>Black-throated Blue Warbler</h2><p>Forest songbird facing decline from canopy loss and temperature changes.</p><audio controls><source src="audio/black_throated_blue_warbler.mp3" type="audio/mpeg"></audio></div></div>
+
+  <div class="card">
+    <img src="images/black_skimmer.gif" alt="Black Skimmer">
+    <div class="card-content">
+      <h2>Black Skimmer</h2>
+      <p>Unusual seabird that skims water surfaces for fish. Threatened by beach disturbance and habitat loss. (NYSDEC)</p>
+      <audio controls>
+        <source src="audio/black_skimmer.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+  
+  <div class="card">
+    <img src="images/least_tern.gif" alt="Least Tern">
+    <div class="card-content">
+      <h2>Least Tern</h2>
+      <p>New York’s smallest tern; nests in colonies on open beaches, vulnerable to recreation and predation. (USFWS)</p>
+      <audio controls>
+        <source src="audio/least_tern.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+  
+    <!-- Continue this exact pattern for the rest of the species... -->
+
+  </section>
+</body>
+</html>
